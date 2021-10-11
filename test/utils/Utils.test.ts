@@ -1,4 +1,4 @@
-import {Utils} from '../../app/utils/Utils';
+import {Utils} from '../../src/utils/Utils';
 
 describe('Utils test suite', () => {
     beforeEach(() => {

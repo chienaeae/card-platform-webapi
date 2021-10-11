@@ -1,7 +1,7 @@
 import type {Config} from '@jest/types';
 
 const config: Config.InitialOptions = {
-    roots: ['<rootDir>/src'],
+    roots: ['<rootDir>/test/', '<rootDir>/src/'],
     transform:{
         '^.+\\.tsx?$': 'ts-jest'
     },
@@ -10,7 +10,10 @@ const config: Config.InitialOptions = {
     testEnvironment: 'node',
     verbose: true,
     collectCoverage: true,
-    collectCoverageFrom: ['<rootDir>/src/app/**/*.ts']
+    collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
+    setupFiles: [
+        'dotenv/config'
+    ]
 }
 
 export default config;
