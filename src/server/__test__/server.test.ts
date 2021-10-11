@@ -1,9 +1,9 @@
 import express, {Application, Express} from "express";
-import {Server} from "../server";
+import {Server} from "../Server";
 
 
 describe('server', () => {
    test('start server and return application', () => {
-       const application = new Server().startServer();
+       new Server().startServer();
    })
 })

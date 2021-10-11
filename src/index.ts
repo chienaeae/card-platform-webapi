@@ -1,4 +1,4 @@
-import {Server} from "./server/server";
+import {Server} from "./server/Server";
 import dotenv from "dotenv";
 const path = require('path')
 
@@ -16,4 +16,5 @@ export class Launcher {
     }
 
 }
+
 new Launcher().launchApp();

@@ -7,8 +7,6 @@ export class Utils {
             throw new Error('Empty url!');
         }
 
-        console.log('Hello World')
-
         return parse(url, true);
     }
 
