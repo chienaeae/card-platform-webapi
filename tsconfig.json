@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "module": "commonjs",
+    "rootDir": "./src",
+    "moduleResolution": "node",
+    "pretty": true,
+    "inlineSourceMap": true,
+    "strict": true,
+    "useUnknownInCatchVariables": true,
+    "target": "ES6",
+    "outDir": "./dist",
+    "resolveJsonModule": true,
+    "types": ["node", "jest"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": false,
+  },
+  "include": [
+    "./src/**/*.js",
+    "./src/**/*.ts",
+  ],
+  "exclude": [
+    "node_modules",
+    "./dist"
+  ]
+}

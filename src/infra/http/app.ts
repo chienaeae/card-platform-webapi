@@ -1,16 +1,16 @@
-import express, {Application} from "express";
-import {register} from "./routes/routes";
-import http from "http";
+import * as express from "express";
+import {v1Router} from "./api/v1";
+import * as http from "http";
 
-export class Server {
+export class App {
 
-    private httpServer: http.Server | undefined;
+    private httpServer?: http.Server;
 
 
     public startServer() {
-        const app: Application = express();
+        const app: express.Application = express();
 
-        register(app);
+        app.use('/api/v1', v1Router);
 
         const PORT = process.env.PORT || 8000;
 

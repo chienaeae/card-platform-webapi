@@ -7,12 +7,12 @@ export class CreateTraderController extends BaseController {
 
         try {
             const { username, password, email } = req.body;
-            const usernameOrError: Result<Username> = Username.create(username);
-            const passwordOrError: Result<Password> = Password.create(password);
-            const emailOrError: Result<Email> = Email.create(email);
+            // const usernameOrError: Result<Username> = Username.create(username);
+            // const passwordOrError: Result<Password> = Password.create(password);
+            // const emailOrError: Result<Email> = Email.create(email);
 
-        } catch (err) {
-            return this.fail(res, err)
+        } catch (err: unknown) {
+            return this.fail(res, (err as Error).message)
         }
 
     }
