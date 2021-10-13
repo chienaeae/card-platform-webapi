@@ -1,8 +1,7 @@
 import {App} from "./infra/http/app";
 import * as dotenv from "dotenv";
-const path = require('path')
-
-dotenv.config({path: path.resolve(__dirname + '/config/.env')});
+import {Trader} from "./infra/sequlize/models"
+dotenv.config();
 
 export class Launcher {
     private server: App;
@@ -13,6 +12,7 @@ export class Launcher {
 
     public launchApp() {
         this.server.startServer();
+        new Trader()
     }
 
 }

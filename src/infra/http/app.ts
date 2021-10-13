@@ -1,4 +1,4 @@
-import * as express from "express";
+import express from "express";
 import {v1Router} from "./api/v1";
 import * as http from "http";
 

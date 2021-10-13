@@ -1,27 +1,38 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "module": "commonjs",
-    "rootDir": "./src",
     "moduleResolution": "node",
-    "pretty": true,
-    "inlineSourceMap": true,
-    "strict": true,
-    "useUnknownInCatchVariables": true,
-    "target": "ES6",
+    "module": "commonjs",
+    "target": "es6",
+    "rootDir": "./src/",
     "outDir": "./dist",
+    "strict": true,
+    "strictNullChecks": false,
+    "useUnknownInCatchVariables": false,
+    "noImplicitAny": true,
+    "types": [
+      "node",
+      "jest"
+    ],
+    "lib": [
+      "es6"
+    ],
     "resolveJsonModule": true,
-    "types": ["node", "jest"],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/@types"
+    ],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "esModuleInterop": false,
+    "esModuleInterop": true
   },
   "include": [
-    "./src/**/*.js",
     "./src/**/*.ts",
+    "./src/**/*.js",
+    "environment.d.ts"
   ],
   "exclude": [
-    "node_modules",
+    "./node_modules",
     "./dist"
   ]
 }
