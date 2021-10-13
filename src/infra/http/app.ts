@@ -1,6 +1,7 @@
 import express from "express";
 import {v1Router} from "./api/v1";
 import * as http from "http";
+import bodyParser from "body-parser";
 
 export class App {
 
@@ -10,6 +11,7 @@ export class App {
     public startServer() {
         const app: express.Application = express();
 
+        app.use(bodyParser.json())
         app.use('/api/v1', v1Router);
 
         const PORT = process.env.PORT || 8000;

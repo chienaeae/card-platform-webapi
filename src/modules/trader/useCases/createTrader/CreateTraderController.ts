@@ -12,7 +12,7 @@ export class CreateTraderController extends BaseController {
             // const emailOrError: Result<Email> = Email.create(email);
 
         } catch (err: unknown) {
-            return this.fail(res, (err as Error).message)
+            return this.fail((err as Error).message)
         }
 
     }

@@ -3,13 +3,15 @@
     "allowJs": true,
     "moduleResolution": "node",
     "module": "commonjs",
+    "pretty": true,
+    "inlineSourceMap": true,
     "target": "es6",
     "rootDir": "./src/",
     "outDir": "./dist",
     "strict": true,
-    "strictNullChecks": false,
-    "useUnknownInCatchVariables": false,
-    "noImplicitAny": true,
+    "noImplicitAny": false, /* 允許不強制使用 any 型別 (針對 strict 政策)*/
+    "useUnknownInCatchVariables": false,  /* 允許在 err 的型別中使用 unknown (針對 strict 政策) */
+    "strictNullChecks": false, /* 允許 不對 null 和 undefined 進行強制檢查 (針對 strict 政策) */
     "types": [
       "node",
       "jest"
@@ -28,8 +30,7 @@
   },
   "include": [
     "./src/**/*.ts",
-    "./src/**/*.js",
-    "environment.d.ts"
+    "./src/**/*.js"
   ],
   "exclude": [
     "./node_modules",
