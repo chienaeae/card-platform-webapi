@@ -27,11 +27,12 @@ export class RegisterUseCase implements UseCase<RegisterDTO, Promise<Response>>{
             return left(Result.fail<void>(combinedPropsResult.error)) as Response;
         }
 
+        const hashedPassword = await identityPasswordOrError.getValue().createHashedPassword();
 
         const identityUserOrError = IdentityUser.create({
             username: request.username,
             email: identityEmailOrError.getValue(),
-            password: identityPasswordOrError.getValue()
+            password: hashedPassword
         })
 
         if(identityUserOrError.isFailure){

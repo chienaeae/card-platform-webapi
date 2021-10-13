@@ -5,12 +5,12 @@ import {IdentityPassword} from "../domain/IdentityPassword";
 import {UniqueEntityID} from "../../../core/domain/UniqueEntityID";
 
 export class IdentityUserMap extends Mapper<IdentityUser> {
-    public static async toPersistence(identityUser: IdentityUser): Promise<any> {
+    public static toPersistence(identityUser: IdentityUser): any {
         return {
             user_id: identityUser.id.toString(),
             username: identityUser.username,
             user_email: identityUser.email.value,
-            user_password: await identityUser.password.getHashedValue()
+            user_password: identityUser.password.value
         }
     }
 

@@ -64,6 +64,13 @@ export class IdentityPassword extends ValueObject<IdentityPasswordProps> {
         return value.length >= 8;
     }
 
+    public async createHashedPassword(): Promise<IdentityPassword>{
+        return new IdentityPassword({
+            value: await this.getHashedValue(),
+            hashed: true
+        })
+    }
+
     public static create(props: IdentityPasswordProps): Result<IdentityPassword>{
         const guardResult = Guard.againstNullOrUndefined(props.value, 'password');
 
