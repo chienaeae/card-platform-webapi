@@ -1,10 +1,10 @@
 export class Result<T>{
     public isSuccess: boolean;
     public isFailure: boolean;
-    public error?: string;
+    public error?: T| string;
     private readonly _value?: T;
 
-    public constructor(isSuccess: boolean, error?: string, value? : T) {
+    public constructor(isSuccess: boolean, error?: T | string, value? : T) {
         if(isSuccess && error){
             throw new Error(`InvalidOperation: A result cannot be successful and contain an error`);
         }
@@ -21,12 +21,16 @@ export class Result<T>{
         Object.freeze(this);
     }
 
-    public getValue(): void | T{
+    public getValue(): T{
         if(!this.isSuccess){
             throw new Error(`Cant retrieve the value from a failed result.`);
         }
 
         return this._value;
+    }
+
+    public errorValue (): T {
+        return this.error as T;
     }
 
     public static ok<U>(value?: U): Result<U> {
@@ -41,6 +45,6 @@ export class Result<T>{
         for (let result of results) {
             if (result.isFailure) return result;
         }
-        return Result.ok<any>();
+        return Result.ok();
     }
 }

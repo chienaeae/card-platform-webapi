@@ -16,7 +16,7 @@ export abstract class BaseController {
         } catch (err) {
             console.log(`[BaseController]: Uncaught controller error`);
             console.log(err);
-            this.fail(res, 'An unexpected error occurred')
+            this.fail('An unexpected error occurred')
         }
     }
 
@@ -47,9 +47,13 @@ export abstract class BaseController {
         return BaseController.jsonResponse(res, 404, message ? message : 'Not found');
     }
 
-    public fail(res: express.Response, error: Error | string) {
+    public conflict (message?: string) {
+        return BaseController.jsonResponse(this.res, 409, message ? message : 'Conflict');
+    }
+
+    public fail(error: Error | string) {
         console.log(error);
-        return res.status(500).json({
+        return this.res.status(500).json({
             message: error.toString()
         })
     }

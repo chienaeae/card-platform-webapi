@@ -12,7 +12,6 @@ export class Launcher {
 
     public launchApp() {
         this.server.startServer();
-        new Trader()
     }
 
 }
