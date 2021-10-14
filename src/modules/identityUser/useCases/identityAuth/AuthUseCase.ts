@@ -4,40 +4,42 @@ import {Either, left, right} from "../../../../core/logic/Either";
 import {Result} from "../../../../core/logic/Result";
 import {IdentityEmail} from "../../domain/IdentityEmail";
 import {IdentityPassword} from "../../domain/IdentityPassword";
-import {IIdentityUserRepo} from "../../repos/IdentityUserRepo";
+import {IIdentityUserRepo} from "../../repos/interfaces/IIdentityUserRepo";
 import {IdentityUser} from "../../domain/IdentityUser";
 import {AuthErrors} from "./AuthError";
 import {RegisterErrors} from "../register/RegisterError";
+import {inject, injectable} from "inversify";
+import {TYPES} from "../../../../infra/inversify/config/types";
 
-type Response = Either<AuthErrors.EmailNotExists | AuthErrors.PasswordNotMatches | Result<any>,  Result<IdentityUser>>
+export type AuthResponse = Either<AuthErrors.EmailNotExists |
+    AuthErrors.PasswordNotMatches |
+    Result<any>,
+    Result<IdentityUser>
+>
 
-export class AuthUseCase implements UseCase<AuthDTO, Promise<Response>>{
+@injectable()
+export class AuthUseCase implements UseCase<AuthDTO, Promise<AuthResponse>>{
+    @inject(TYPES.IIdentityUserRepo)private identityUserRepo: IIdentityUserRepo;
 
-    private identityUserRepo: IIdentityUserRepo;
-
-    constructor(identityUserRepo: IIdentityUserRepo) {
-        this.identityUserRepo = identityUserRepo
-    }
-
-    async execute(request?: AuthDTO): Promise<Response> {
+    async execute(request?: AuthDTO): Promise<AuthResponse> {
         const identityEmailOrError = IdentityEmail.create(request.email)
         const identityPasswordOrError = IdentityPassword.create({value: request.password});
         const combinedPropsResult = Result.combine([identityEmailOrError, identityPasswordOrError]);
 
         if(combinedPropsResult.isFailure){
-            return left(Result.fail<void>(combinedPropsResult.error)) as Response;
+            return left(Result.fail<void>(combinedPropsResult.error)) as AuthResponse;
         }
         const requestEmail: IdentityEmail = identityEmailOrError.getValue();
         const requestPassword: IdentityPassword = identityPasswordOrError.getValue();
 
         const identityUser: IdentityUser = await this.identityUserRepo.findIdentityUserByEmail(requestEmail);
         if(!!identityUser === false){
-            return left(new AuthErrors.EmailNotExists(requestEmail.value)) as Response;
+            return left(new AuthErrors.EmailNotExists(requestEmail.value)) as AuthResponse;
         }
         const comparedResult: boolean = await identityUser.password.comparePassword(requestPassword.value)
         if(!comparedResult){
-            return left(new AuthErrors.PasswordNotMatches()) as Response;
+            return left(new AuthErrors.PasswordNotMatches()) as AuthResponse;
         }
-        return right(Result.ok<IdentityUser>(identityUser)) as Response;
+        return right(Result.ok(identityUser)) as AuthResponse;
     }
 }

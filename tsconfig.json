@@ -14,7 +14,8 @@
     "strictNullChecks": false, /* 允許 不對 null 和 undefined 進行強制檢查 (針對 strict 政策) */
     "types": [
       "node",
-      "jest"
+      "jest",
+      "reflect-metadata"
     ],
     "lib": [
       "es6"

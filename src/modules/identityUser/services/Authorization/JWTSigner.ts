@@ -1,21 +1,22 @@
 import jwt, {SignOptions, VerifyOptions} from "jsonwebtoken";
+import {ISigner} from "./interfaces/ISigner";
+import {injectable} from "inversify";
 
-export interface ISigner {
-    verify<payloadObject>(token: string, verifyOption: VerifyOptions): Promise<payloadObject>;
-
-    sign(payload: any, signOption: SignOptions): string;
-}
-
+@injectable()
 export class JWTSigner implements ISigner {
     private readonly jwtSecret: string;
+    private readonly verifyOption: VerifyOptions;
+    private readonly signOption: SignOptions;
 
-    constructor(secret: string) {
+    constructor(secret: string, verifyOption: VerifyOptions, signOption: SignOptions) {
         this.jwtSecret = secret;
+        this.verifyOption = verifyOption;
+        this.signOption = signOption;
     }
 
-    verify<payloadObject>(token: string, verifyOption: VerifyOptions): Promise<payloadObject> {
+    verify<payloadObject>(token: string): Promise<payloadObject> {
         return new Promise((resolve, reject) => {
-            jwt.verify(token, this.jwtSecret, verifyOption, (err, decoded) => {
+            jwt.verify(token, this.jwtSecret, this.verifyOption, (err, decoded) => {
                 if (err) reject(err);
                 resolve(decoded as payloadObject)
             });
@@ -23,7 +24,13 @@ export class JWTSigner implements ISigner {
 
     }
 
-    sign(payload: any, signOption: SignOptions): string {
-        return jwt.sign(payload, this.jwtSecret, signOption)
+    sign(payload: any): Promise<string> {
+        return new Promise((resolve, reject) => {
+            jwt.sign(payload, this.jwtSecret, this.signOption, (err, token) => {
+                if (err) reject(err);
+                resolve(token);
+            })
+        })
+
     }
 }

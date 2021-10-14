@@ -1,13 +1,14 @@
 import {BaseController} from "../../../../core/infra/BaseController";
 import express from "express";
 import {RegisterDTO} from "./RegisterDTO";
-import {RegisterUseCase} from "./RegisterUseCase";
+import {RegisterUseCase, RegisterUseCaseResponse} from "./RegisterUseCase";
 import {RegisterErrors} from "./RegisterError";
+import {UseCase} from "../../../../core/domain/UseCase";
 
 export class RegisterController extends BaseController {
-    private useCase: RegisterUseCase;
+    private useCase: UseCase<RegisterDTO, Promise<RegisterUseCaseResponse>>;
 
-    constructor(useCase: RegisterUseCase) {
+    constructor(useCase: UseCase<RegisterDTO, Promise<RegisterUseCaseResponse>>) {
         super();
         this.useCase = useCase;
     }
@@ -17,7 +18,6 @@ export class RegisterController extends BaseController {
 
         try{
             const result = await this.useCase.execute(dto);
-
             if(result.isLeft()){
                 const error = result.value;
 

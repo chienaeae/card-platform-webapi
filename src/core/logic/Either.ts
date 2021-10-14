@@ -7,11 +7,17 @@ export class Left<L, A> {
         this.value = value;
     }
 
-    isLeft(): this is Left<L, A> {
+    // isLeft(): this is Left<L, A> {
+    //     return true
+    // }
+    isLeft() {
         return true
     }
 
-    isRight(): this is Right<L, A> {
+    // isRight(): this is Right<L, A> {
+    //     return false
+    // }
+    isRight() {
         return false
     }
 }
@@ -23,13 +29,21 @@ export class Right<L, A> {
         this.value = value;
     }
 
-    isLeft(): this is Left<L, A> {
+    isLeft() {
         return false;
     }
 
-    ifRight(): this is Right<L, A> {
+    // isLeft(): this is Left<L, A> {
+    //     return false;
+    // }
+
+    isRight() {
         return true;
     }
+
+    // isRight(): this is Right<L, A> {
+    //     return true;
+    // }
 }
 
 export const left = <L, A>(l: L): Either<L, A> => {
@@ -37,5 +51,5 @@ export const left = <L, A>(l: L): Either<L, A> => {
 };
 
 export const right = <L, A>(a: A): Either<L, A> => {
-    return new Right<L, A>(a);
+    return new Right(a);
 }
