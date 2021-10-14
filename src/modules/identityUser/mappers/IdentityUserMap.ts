@@ -16,7 +16,10 @@ export class IdentityUserMap extends Mapper<IdentityUser> {
 
     public static toDomain(raw: any): IdentityUser {
         const identityEmailOrError = IdentityEmail.create(raw.user_email);
-        const identityPasswordOrError = IdentityPassword.create(raw.user_password);
+        const identityPasswordOrError = IdentityPassword.create({
+            value: raw.user_password,
+            hashed: true
+        });
 
         const identityUserOrError = IdentityUser.create({
             username: raw.username,

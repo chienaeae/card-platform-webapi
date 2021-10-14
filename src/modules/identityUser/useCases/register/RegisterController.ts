@@ -29,7 +29,7 @@ export class RegisterController extends BaseController {
                         return this.fail(error.errorValue());
                 }
             }else{
-                return this.ok(this.res);
+                return this.created(this.res);
             }
 
         }catch(err) {

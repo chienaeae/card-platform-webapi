@@ -37,7 +37,9 @@ export class IdentityUserRepo implements IIdentityUserRepo {
         const baseQuery = this.createBaseQuery();
         baseQuery.where['user_email'] = email.value.toString();
         const identityUser = await this.models.IdentityUser.findOne(baseQuery);
-        if (!!identityUser === true) return identityUser;
+        if (!!identityUser === true) {
+            return IdentityUserMap.toDomain(identityUser);
+        }
         return null;
 
     }
@@ -46,7 +48,9 @@ export class IdentityUserRepo implements IIdentityUserRepo {
         const baseQuery = this.createBaseQuery();
         baseQuery.where['username'] = username;
         const identityUser = await this.models.IdentityUser.findOne(baseQuery);
-        if (!!identityUser === true) return identityUser;
+        if (!!identityUser === true) {
+            return IdentityUserMap.toDomain(identityUser);
+        }
         return null;
     }
 

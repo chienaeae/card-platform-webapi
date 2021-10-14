@@ -11,7 +11,6 @@ export class App {
     public startServer() {
         const app: express.Application = express();
 
-        app.use(bodyParser.json())
         app.use('/api/v1', v1Router);
 
         const PORT = process.env.PORT || 8000;

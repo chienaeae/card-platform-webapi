@@ -39,6 +39,10 @@ export abstract class BaseController {
         return res.sendStatus(201);
     }
 
+    public clientError (message?: string) {
+        return BaseController.jsonResponse(this.res, 400, message ? message : 'Unauthorized');
+    }
+
     public unauthorized(res: express.Response, message?: string) {
         return BaseController.jsonResponse(res, 401, message ? message : 'Unauthorized');
     }
