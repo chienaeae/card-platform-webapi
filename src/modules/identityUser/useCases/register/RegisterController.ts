@@ -4,20 +4,25 @@ import {RegisterDTO} from "./RegisterDTO";
 import {RegisterUseCase, RegisterUseCaseResponse} from "./RegisterUseCase";
 import {RegisterErrors} from "./RegisterError";
 import {UseCase} from "../../../../core/domain/UseCase";
+import {inject, injectable} from "inversify";
+import {TYPES} from "../../../../infra/inversify/config/types";
 
+@injectable()
 export class RegisterController extends BaseController {
-    private useCase: UseCase<RegisterDTO, Promise<RegisterUseCaseResponse>>;
+    @inject(TYPES.RegisterUseCase)private registerUseCase: UseCase<RegisterDTO, Promise<RegisterUseCaseResponse>>;
 
-    constructor(useCase: UseCase<RegisterDTO, Promise<RegisterUseCaseResponse>>) {
+    constructor(
+        // useCase: UseCase<RegisterDTO, Promise<RegisterUseCaseResponse>>
+    ) {
         super();
-        this.useCase = useCase;
+        // this.registerUseCase = useCase;
     }
 
     async executeImpl(req: express.Request, res: express.Response): Promise<any> {
         const dto: RegisterDTO = req.body as RegisterDTO;
 
         try{
-            const result = await this.useCase.execute(dto);
+            const result = await this.registerUseCase.execute(dto);
             if(result.isLeft()){
                 const error = result.value;
 

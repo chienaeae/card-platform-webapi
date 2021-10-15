@@ -14,6 +14,7 @@ export class IdentityTokenUseCase implements UseCase<IdentityUser, Promise<Resul
     async execute(request?: IdentityUser): Promise<Result<IdentityTokenDTO>> {
         const token = await this.jwtSigner.sign({
             username: request.username,
+            userId: request.id.toString(),
             email: request.email.value
         });
         return Result.ok<IdentityTokenDTO>({accessToken: token});

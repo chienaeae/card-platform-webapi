@@ -1,34 +1,26 @@
-import {BaseController} from "../../../../core/infra/BaseController";
 import express from "express";
-import {Either, right} from "../../../../core/logic/Either";
+import {AuthProvider, BaseController} from "../../../../core/infra/BaseController";
 import {Result} from "../../../../core/logic/Result";
-import {AuthDTO} from "../identityAuth/AuthDTO";
-import {AuthResponse, AuthUseCase} from "./AuthUseCase";
-import {RegisterErrors} from "../register/RegisterError";
-import {AuthErrors} from "./AuthError";
-import {IdentityTokenUseCase} from "./IdentityTokenUseCase";
+import {UseCase} from "../../../../core/domain/UseCase";
 import {IdentityUser} from "../../domain/IdentityUser";
 import {IdentityTokenDTO} from "./IdentityTokenDTO";
-import {UseCase} from "../../../../core/domain/UseCase";
+import {AuthDTO} from "./AuthDTO";
+import {AuthResponse} from "./AuthUseCase";
+import {AuthErrors} from "./AuthError";
+import {inject, injectable} from "inversify";
+import {TYPES} from "../../../../infra/inversify/config/types";
 
-
-
+@injectable()
 export class TokenController extends BaseController {
-    private authUseCase: UseCase<AuthDTO, Promise<AuthResponse>>;
-    private identityTokenUseCase: UseCase<IdentityUser, Promise<Result<IdentityTokenDTO>>>
+    @inject(TYPES.AuthUseCase) private authUseCase: UseCase<AuthDTO, Promise<AuthResponse>>;
+    @inject(TYPES.IdentityTokenUseCase) private identityTokenUseCase: UseCase<IdentityUser, Promise<Result<IdentityTokenDTO>>>
+    // @inject(TYPES.IdentityAuthProvider) protected authProvider: AuthProvider;
 
-    constructor(authUseCase: UseCase<AuthDTO, Promise<AuthResponse>>, identityTokenUseCase: UseCase<IdentityUser, Promise<Result<IdentityTokenDTO>>>) {
-        super();
-        this.authUseCase = authUseCase
-        this.identityTokenUseCase = identityTokenUseCase
-    }
-
-    async executeImpl(req: express.Request, res: express.Response): Promise<any | IdentityTokenDTO>{
+    async executeImpl(req: express.Request, res: express.Response): Promise<any | IdentityTokenDTO> {
         const dto: AuthDTO = req.body as AuthDTO;
-
-        try{
+        try {
             const authResult = await this.authUseCase.execute(dto)
-            if(authResult.isLeft()) {
+            if (authResult.isLeft()) {
                 const error = authResult.value;
                 switch (error.constructor) {
                     case AuthErrors.EmailNotExists:
@@ -40,13 +32,13 @@ export class TokenController extends BaseController {
                         return this.fail(error.errorValue());
                 }
             }
-            const identityUser : IdentityUser = authResult.value.getValue()
+            const identityUser: IdentityUser = authResult.value.getValue()
             const identityTokeResult = await this.identityTokenUseCase.execute(identityUser)
-            if (identityTokeResult.isSuccess){
+            if (identityTokeResult.isSuccess) {
                 return this.ok(this.res, identityTokeResult.getValue());
             }
 
-        }catch(err) {
+        } catch (err) {
             return this.fail(err);
         }
     }
