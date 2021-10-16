@@ -1,6 +1,5 @@
 import {App} from "./infra/http/app";
 import * as dotenv from "dotenv";
-import {Trader} from "./infra/sequlize/models"
 dotenv.config();
 
 export class Launcher {

@@ -14,7 +14,6 @@ import {TYPES} from "../../../../infra/inversify/config/types";
 export class TokenController extends BaseController {
     @inject(TYPES.AuthUseCase) private authUseCase: UseCase<AuthDTO, Promise<AuthResponse>>;
     @inject(TYPES.IdentityTokenUseCase) private identityTokenUseCase: UseCase<IdentityUser, Promise<Result<IdentityTokenDTO>>>
-    // @inject(TYPES.IdentityAuthProvider) protected authProvider: AuthProvider;
 
     async executeImpl(req: express.Request, res: express.Response): Promise<any | IdentityTokenDTO> {
         const dto: AuthDTO = req.body as AuthDTO;
@@ -35,7 +34,7 @@ export class TokenController extends BaseController {
             const identityUser: IdentityUser = authResult.value.getValue()
             const identityTokeResult = await this.identityTokenUseCase.execute(identityUser)
             if (identityTokeResult.isSuccess) {
-                return this.ok(this.res, identityTokeResult.getValue());
+                return this.ok(identityTokeResult.getValue());
             }
 
         } catch (err) {

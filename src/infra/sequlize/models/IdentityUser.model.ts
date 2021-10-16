@@ -1,6 +1,5 @@
 import {Optional} from 'sequelize'
-import {Table, Column, Model, DataType, HasOne, CreatedAt} from 'sequelize-typescript';
-import {Trader} from "./Trader.model";
+import {Table, Column, Model, DataType} from 'sequelize-typescript';
 
 interface UserAttributes {
     user_id: string;
@@ -55,4 +54,3 @@ export class IdentityUser extends Model<UserAttributes, UserCreationAttributes>{
     public readonly updated_time!: Date;
 
 }
-

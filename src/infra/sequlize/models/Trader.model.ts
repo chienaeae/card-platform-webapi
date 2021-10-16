@@ -1,6 +1,7 @@
 import { Optional } from 'sequelize'
-import {Table, Column, Model, DataType, HasOne, BelongsTo, CreatedAt, UpdatedAt} from 'sequelize-typescript';
+import {Table, Column, Model, DataType, HasOne, BelongsTo, CreatedAt, UpdatedAt, HasMany} from 'sequelize-typescript';
 import {IdentityUser} from "./IdentityUser.model";
+import {CardOrder} from "./CardOrder.model";
 
 interface TraderAttributes {
     trader_id: string;
@@ -39,6 +40,11 @@ export class Trader extends Model<TraderAttributes> {
     public created_time!: Date;
     public updated_time!: Date;
 
-    @BelongsTo(() => IdentityUser, { foreignKey: 'identity_user_id', targetKey: 'user_id', as: 'IdentityUser' })
-    identity_user: IdentityUser
+    @BelongsTo(() => IdentityUser,
+        { foreignKey: 'identity_user_id', targetKey: 'user_id', as: 'IdentityUser' })
+    public identity_user: IdentityUser
+
+    @HasMany(() => CardOrder,
+        {foreignKey: 'order_trader_id', sourceKey: 'trader_id', as: 'CardOrder'})
+    public cardOrders: CardOrder[]
 }

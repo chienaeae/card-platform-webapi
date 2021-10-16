@@ -11,13 +11,6 @@ import {TYPES} from "../../../../infra/inversify/config/types";
 export class RegisterController extends BaseController {
     @inject(TYPES.RegisterUseCase)private registerUseCase: UseCase<RegisterDTO, Promise<RegisterUseCaseResponse>>;
 
-    constructor(
-        // useCase: UseCase<RegisterDTO, Promise<RegisterUseCaseResponse>>
-    ) {
-        super();
-        // this.registerUseCase = useCase;
-    }
-
     async executeImpl(req: express.Request, res: express.Response): Promise<any> {
         const dto: RegisterDTO = req.body as RegisterDTO;
 

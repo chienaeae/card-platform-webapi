@@ -40,8 +40,6 @@ export class IdentityAuthProvider implements AuthProvider {
                 const auth = authHeader.split(' ');
                 const authType = auth[0]
                 const accessToken = auth[1]
-                console.log(authType)
-                console.log(accessToken)
                 if (authType === 'Bearer') {
                     try {
                         const payload = await this.jwtSigner.verify(accessToken)

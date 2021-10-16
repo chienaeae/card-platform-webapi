@@ -6,6 +6,7 @@ import {UserId} from "../../identityUser/domain/UserId";
 import {Result} from "../../../core/logic/Result";
 import {AggregateRoot} from "../../../core/domain/AggregateRoot";
 import {TraderUserCreatedEvent} from "./events/TraderCreatedEvent";
+import {TraderId} from "./TraderId";
 
 interface TraderProps {
     userId: UserId
@@ -14,6 +15,10 @@ interface TraderProps {
 export class Trader extends AggregateRoot<TraderProps> {
     get id(): UniqueEntityID {
         return this._id;
+    }
+
+    get traderId(): TraderId{
+        return TraderId.caller(this.id);
     }
 
     get userId(): UserId {

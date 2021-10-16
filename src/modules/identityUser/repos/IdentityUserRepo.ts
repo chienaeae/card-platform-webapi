@@ -22,14 +22,14 @@ export class IdentityUserRepo implements IIdentityUserRepo {
     public async exists(email: IdentityEmail): Promise<boolean> {
         const baseQuery = this.createBaseQuery();
         baseQuery.where['user_email'] = email.value.toString();
-        const identityUser = await this.models.IdentityUser.findOne(baseQuery);
+        const identityUser = await this.models.IdentityUserModel.findOne(baseQuery);
         return !!identityUser == true;
     }
 
     public async findIdentityUserByEmail(email: IdentityEmail): Promise<IdentityUser> {
         const baseQuery = this.createBaseQuery();
         baseQuery.where['user_email'] = email.value.toString();
-        const identityUser = await this.models.IdentityUser.findOne(baseQuery);
+        const identityUser = await this.models.IdentityUserModel.findOne(baseQuery);
         if (!!identityUser === true) {
             return IdentityUserMap.toDomain(identityUser);
         }
@@ -40,15 +40,15 @@ export class IdentityUserRepo implements IIdentityUserRepo {
     public async findIdentityUserByUsername(username: string): Promise<IdentityUser> {
         const baseQuery = this.createBaseQuery();
         baseQuery.where['username'] = username;
-        const identityUser = await this.models.IdentityUser.findOne(baseQuery);
-        if (!!identityUser === true) {
-            return IdentityUserMap.toDomain(identityUser);
+        const rawIdentityUser = await this.models.IdentityUserModel.findOne(baseQuery);
+        if (!!rawIdentityUser === true) {
+            return IdentityUserMap.toDomain(rawIdentityUser);
         }
         return null;
     }
 
     public async save(identityUser: IdentityUser): Promise<void> {
-        const IdentityUserUserModel = this.models.IdentityUser;
+        const IdentityUserUserModel = this.models.IdentityUserModel;
         const exists = await this.exists(identityUser.email);
         const rawIdentityUser = await IdentityUserMap.toPersistence(identityUser);
 

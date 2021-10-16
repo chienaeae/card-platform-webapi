@@ -61,12 +61,12 @@ export abstract class BaseController {
         return res.status(code).json({message})
     }
 
-    public ok<T>(res: express.Response, dto?: T) {
+    public ok<T>(dto?: T) {
         if (!!dto) {
-            res.type('application/json');
-            return res.status(200).json(dto);
+            this.res.type('application/json');
+            return this.res.status(200).json(dto);
         } else {
-            return res.sendStatus(200);
+            return this.res.sendStatus(200);
         }
     }
 
@@ -78,12 +78,12 @@ export abstract class BaseController {
         return BaseController.jsonResponse(this.res, 400, message ? message : 'Unauthorized');
     }
 
-    public unauthorized(res: express.Response, message?: string) {
-        return BaseController.jsonResponse(res, 401, message ? message : 'Unauthorized');
+    public unauthorized(message?: string) {
+        return BaseController.jsonResponse(this.res, 401, message ? message : 'Unauthorized');
     }
 
-    public notFound(res: express.Response, message?: string) {
-        return BaseController.jsonResponse(res, 404, message ? message : 'Not found');
+    public notFound(message?: string) {
+        return BaseController.jsonResponse(this.res, 404, message ? message : 'Not found');
     }
 
     public conflict(message?: string) {

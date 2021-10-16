@@ -7,7 +7,6 @@ import {IdentityPassword} from "../../domain/IdentityPassword";
 import {IIdentityUserRepo} from "../../repos/interfaces/IIdentityUserRepo";
 import {IdentityUser} from "../../domain/IdentityUser";
 import {AuthErrors} from "./AuthError";
-import {RegisterErrors} from "../register/RegisterError";
 import {inject, injectable} from "inversify";
 import {TYPES} from "../../../../infra/inversify/config/types";
 
@@ -19,7 +18,7 @@ export type AuthResponse = Either<AuthErrors.EmailNotExists |
 
 @injectable()
 export class AuthUseCase implements UseCase<AuthDTO, Promise<AuthResponse>>{
-    @inject(TYPES.IIdentityUserRepo)private identityUserRepo: IIdentityUserRepo;
+    @inject(TYPES.IdentityUserRepo)private identityUserRepo: IIdentityUserRepo;
 
     async execute(request?: AuthDTO): Promise<AuthResponse> {
         const identityEmailOrError = IdentityEmail.create(request.email)

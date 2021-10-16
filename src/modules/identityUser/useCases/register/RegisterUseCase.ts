@@ -15,7 +15,7 @@ export type RegisterUseCaseResponse = Either<GenericAppError.UnexpectedError | R
 
 @injectable()
 export class RegisterUseCase implements UseCase<RegisterDTO, Promise<RegisterUseCaseResponse>>{
-    @inject(TYPES.IIdentityUserRepo)private identityUserRepo: IIdentityUserRepo;
+    @inject(TYPES.IdentityUserRepo)private identityUserRepo: IIdentityUserRepo;
 
     async execute(request?: RegisterDTO): Promise<RegisterUseCaseResponse> {
         const identityEmailOrError = IdentityEmail.create(request.email)
