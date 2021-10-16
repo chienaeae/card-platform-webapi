@@ -23,17 +23,17 @@ export class TraderRepo implements ITraderRepo{
         const baseQuery = this.createBaseQuery();
         baseQuery.where['identity_user_id'] = userId.id.toString()
         const rawTrader = await this.models.TraderModel.findOne(baseQuery);
-        return !!rawTrader === true
+        return !!rawTrader === true;
     }
 
     async findTraderByIdentityUserId(userId: UserId): Promise<Trader> {
         const baseQuery = this.createBaseQuery();
-        baseQuery.where['identity_user_id'] = userId.id.toString()
+        baseQuery.where['identity_user_id'] = userId.id.toString();
         const rawTrader = await this.models.TraderModel.findOne(baseQuery);
         if(!!rawTrader === true) {
             return TraderMap.toDomain(rawTrader);
         }
-        return null
+        return null;
     }
 
     async save(trader: Trader): Promise<void> {

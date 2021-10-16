@@ -29,7 +29,7 @@ export class CardTrade extends Model<CardTradeAttributes>{
     public trade_id!: string;
 
     @Column({
-        type: DataType.INTEGER,
+        type: DataType.UUID,
         allowNull: false,
         references: {
             model: 'card',
@@ -38,7 +38,7 @@ export class CardTrade extends Model<CardTradeAttributes>{
         onUpdate: 'cascade',
         onDelete: 'no action'
     })
-    public trade_card_id!: number;
+    public trade_card_id!: string;
 
     @Column({
         type: DataType.UUID,

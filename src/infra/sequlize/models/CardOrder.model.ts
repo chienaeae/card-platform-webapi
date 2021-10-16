@@ -57,7 +57,7 @@ export class CardOrder extends Model<CardOrderAttributes> {
     public order_trader_id!: string;
 
     @Column({
-        type: DataType.INTEGER,
+        type: DataType.UUID,
         allowNull: false,
         references: {
             model: 'card',
@@ -66,7 +66,7 @@ export class CardOrder extends Model<CardOrderAttributes> {
         onDelete: 'cascade',
         onUpdate: 'cascade',
     })
-    public order_card_id!: number;
+    public order_card_id!: string;
 
     @Column({
         type: DataType.TINYINT,

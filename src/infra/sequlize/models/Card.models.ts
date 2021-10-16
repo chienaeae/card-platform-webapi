@@ -3,7 +3,8 @@ import {CardOrder} from "./CardOrder.model";
 import {CardTrade} from "./CardTrade.model";
 
 interface CardAttributes {
-    card_id: number;
+    card_id: string;
+    card_index: number;
     card_name: string;
     created_time?: Date;
     updated_time?: Date;
@@ -13,26 +14,29 @@ interface CardAttributes {
     timestamps: true,
     tableName: 'card',
     underscored: true,
-    indexes: [{
-        unique: true,
-        fields: ['card_name']
-    }],
     createdAt: 'created_time',
     updatedAt: 'updated_time'
 })
 export class Card extends Model<CardAttributes> {
     @Column({
-        type: DataType.INTEGER,
-        autoIncrement: true,
+        type: DataType.UUID,
+        defaultValue: DataType.UUIDV4,
         allowNull: false,
         primaryKey: true
     })
-    public card_id!: number;
+    public card_id!: string;
+
+    @Column({
+        type: DataType.INTEGER,
+        unique: true,
+        allowNull: false,
+    })
+    public card_index!: number;
 
     @Column({
         type: DataType.STRING(250),
-        allowNull: false,
-        unique: true
+        unique: true,
+        allowNull: false
     })
     public card_name!: string;
 

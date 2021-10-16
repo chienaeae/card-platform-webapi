@@ -11,7 +11,7 @@ sequelize.addModels([CardModel, CardOrderModel, CardTradeModel, TraderModel, Ide
 async function authConnection() {
     try{
         await sequelize.authenticate();
-        await sequelize.sync({force: true})
+        // await sequelize.sync();
         console.log('Connection has been established successfully.');
     }catch (error){
         console.error('Unable to connect to the database:', error);
@@ -20,4 +20,4 @@ async function authConnection() {
 
 authConnection()
 
-export {TraderModel, IdentityUserModel};
+export {CardModel, CardOrderModel, CardTradeModel, TraderModel, IdentityUserModel};

@@ -11,7 +11,6 @@ import {TYPES} from "../../../../infra/inversify/config/types";
 import {TraderRepo} from "../../repos/TraderRepo";
 import {ITraderRepo} from "../../repos/interfaces/ITraderRepo";
 import {CreateTraderError} from "./CreateTraderError";
-import {RegisterUseCaseResponse} from "../../../identityUser/useCases/register/RegisterUseCase";
 
 export type CreateTraderUseCaseResponse = Either<CreateTraderError.TraderAlreadyExists | GenericAppError.UnexpectedError | Result<any>, Result<void>>
 

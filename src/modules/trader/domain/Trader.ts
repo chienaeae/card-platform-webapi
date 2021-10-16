@@ -18,7 +18,7 @@ export class Trader extends AggregateRoot<TraderProps> {
     }
 
     get traderId(): TraderId{
-        return TraderId.caller(this.id);
+        return TraderId.create(this.id);
     }
 
     get userId(): UserId {

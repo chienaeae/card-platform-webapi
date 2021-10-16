@@ -1,14 +1,10 @@
-import {AuthProvider, BaseController} from "../../../../core/infra/BaseController";
 import * as express from "express";
-import {Result} from "../../../../core/logic/Result";
-import {Trader} from "../../domain/Trader";
 import {inject, injectable} from "inversify";
 import {TYPES} from "../../../../infra/inversify/config/types";
-import {IdentityTokenDTO} from "../../../identityUser/useCases/identityAuth/IdentityTokenDTO";
-import {ISigner} from "../../../identityUser/services/Authorization/interfaces/ISigner";
+import {AuthProvider, BaseController} from "../../../../core/infra/BaseController";
 import {UseCase} from "../../../../core/domain/UseCase";
 import {CreateTraderDTO} from "./CreateTraderDTO";
-import {CreateTraderUseCase, CreateTraderUseCaseResponse} from "./CreateTraderUseCase";
+import {CreateTraderUseCaseResponse} from "./CreateTraderUseCase";
 import {CreateTraderError} from "./CreateTraderError";
 
 @injectable()

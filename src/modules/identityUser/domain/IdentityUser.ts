@@ -19,7 +19,7 @@ export class IdentityUser extends AggregateRoot<IdentityUserProps> {
     }
 
     get userId(): UserId {
-        return UserId.caller(this.id);
+        return UserId.create(this.id);
     }
 
     get email(): IdentityEmail {
