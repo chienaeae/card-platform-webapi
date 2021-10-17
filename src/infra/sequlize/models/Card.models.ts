@@ -44,7 +44,7 @@ export class Card extends Model<CardAttributes> {
     public readonly updated_time!: Date;
 
     @HasMany(() => CardOrder,
-        {foreignKey: 'order_card_id', sourceKey: 'card_id', as: 'CardOrder'})
+        {foreignKey: 'order_card_index', sourceKey: 'card_index', as: 'CardOrder'})
     public cardOrders: CardOrder[]
 
 

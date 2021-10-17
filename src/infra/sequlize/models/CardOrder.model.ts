@@ -8,8 +8,8 @@ interface CardOrderAttributes {
     order_id: string;
     order_price: number;
     order_trader_id: string;
-    order_card_id: number;
-    order_completed: number;
+    order_card_index: number;
+    order_status: number;
     order_type: string;
     ordered_time?: Date;
     created_time?: Date;
@@ -57,22 +57,22 @@ export class CardOrder extends Model<CardOrderAttributes> {
     public order_trader_id!: string;
 
     @Column({
-        type: DataType.UUID,
+        type: DataType.INTEGER,
         allowNull: false,
         references: {
             model: 'card',
-            key: 'card_id'
+            key: 'card_index'
         },
         onDelete: 'cascade',
         onUpdate: 'cascade',
     })
-    public order_card_id!: string;
+    public order_card_index!: number;
 
     @Column({
         type: DataType.TINYINT,
         allowNull: false
     })
-    public order_completed!: number;
+    public order_status!: number;
 
     @Column({
         type: DataType.ENUM,
@@ -92,7 +92,7 @@ export class CardOrder extends Model<CardOrderAttributes> {
 
 
     @BelongsTo(() => Card,
-        {foreignKey: 'order_card_id', targetKey: 'card_id', as: 'Card'})
+        {foreignKey: 'order_card_index', targetKey: 'card_index', as: 'Card'})
     public card: Card
 
     @BelongsTo(() =>

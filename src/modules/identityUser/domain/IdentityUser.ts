@@ -44,7 +44,8 @@ export class IdentityUser extends AggregateRoot<IdentityUserProps> {
 
     public static create(props: IdentityUserProps, id?: UniqueEntityID): Result<IdentityUser> {
         const guardedProps = [
-            {argument: props.email, argumentName: 'email'}
+            {argument: props.email, argumentName: 'email'},
+            {argument: props.password, argumentName: 'password'}
         ];
 
         const guardResult = Guard.againstNullOrUndefinedBulk(guardedProps);

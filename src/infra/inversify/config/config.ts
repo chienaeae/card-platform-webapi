@@ -28,6 +28,14 @@ import {
 }  from "../../../modules/trader/useCases/createTrader/CreateTraderUseCase";
 import {TraderRepo} from "../../../modules/trader/repos/TraderRepo";
 import {ITraderRepo} from "../../../modules/trader/repos/interfaces/ITraderRepo";
+import {CreateCardDTO} from "../../../modules/card/useCases/createCard/CreateCardDTO";
+import {
+    CreateCardUseCase,
+    CreateCardUseCaseResponse
+} from "../../../modules/card/useCases/createCard/CreateCardUseCase";
+import {CreateCardController} from "../../../modules/card/useCases/createCard/CreateCardController";
+import {ICardRepo} from "../../../modules/card/repos/interfaces/ICardRepo";
+import {CardRepo} from "../../../modules/card/repos/CardRepo";
 
 const container = new Container();
 container.bind<ISigner>(TYPES.ISigner).toDynamicValue(() => new JWTSigner(secret, verifyOptions, signOptions)).inSingletonScope();
@@ -35,14 +43,17 @@ container.bind<AuthProvider>(TYPES.IdentityAuthProvider).to(IdentityAuthProvider
 // Repo
 container.bind<ITraderRepo>(TYPES.TraderRepo).toDynamicValue(() => new TraderRepo(Models)).inTransientScope();
 container.bind<IIdentityUserRepo>(TYPES.IdentityUserRepo).toDynamicValue(() => new IdentityUserRepo(Models)).inTransientScope();
+container.bind<ICardRepo>(TYPES.CardRepo).toDynamicValue(() => new CardRepo(Models)).inTransientScope();
 // UseCase
 container.bind<UseCase<RegisterDTO, Promise<RegisterUseCaseResponse>>>(TYPES.RegisterUseCase).to(RegisterUseCase).inTransientScope();
 container.bind<UseCase<AuthDTO, Promise<AuthResponse>>>(TYPES.AuthUseCase).to(AuthUseCase).inTransientScope();
 container.bind<UseCase<IdentityUser, Promise<Result<IdentityTokenDTO>>>>(TYPES.IdentityTokenUseCase).to(IdentityTokenUseCase).inSingletonScope();
 container.bind<UseCase<CreateTraderDTO, Promise<CreateTraderUseCaseResponse>>>(TYPES.CreateTraderUseCase).to(CreateTraderUseCase).inSingletonScope();
+container.bind<UseCase<CreateCardDTO, CreateCardUseCaseResponse>>(TYPES.CreateCardUseCase).to(CreateCardUseCase).inSingletonScope();
 // Controller
 container.bind<BaseController>(TYPES.RegisterController).to(RegisterController).inTransientScope();
 container.bind<BaseController>(TYPES.TokenController).to(TokenController).inTransientScope();
 container.bind<BaseController>(TYPES.CreateTraderController).to(CreateTraderController).inTransientScope();
+container.bind<BaseController>(TYPES.CreateCardController).to(CreateCardController).inTransientScope();
 
 export default container;

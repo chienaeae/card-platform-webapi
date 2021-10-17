@@ -3,7 +3,6 @@ import {AuthProvider, Principal} from "../../../../core/infra/BaseController";
 import {inject, injectable} from "inversify";
 import {TYPES} from "../../../../infra/inversify/config/types";
 import {ISigner} from "../../services/Authorization/interfaces/ISigner";
-import {VerifyErrors} from "jsonwebtoken";
 
 
 class IdentityPrincipal implements Principal {

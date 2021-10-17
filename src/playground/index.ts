@@ -14,7 +14,7 @@ import {Model} from "sequelize-typescript";
 import {CardRepo} from "../modules/card/repos/CardRepo";
 import {Card} from "../modules/card/domain/Card";
 
-const a = Models.TraderModel
+// const a = Models.TraderModel
 
 const container = new Container();
 
@@ -41,27 +41,20 @@ async function main() {
     // })
 
 
-    const repo = new CardRepo(Models);
-    let count_num = await repo.count()
-    console.log(count_num);
-    await repo.exists('Pikachu')
-    const newCard = Card.create({
-        cardIndex: count_num + 1,
-        cardName: 'zoo'
-    }).getValue()
-    await repo.save(newCard);
-    count_num = await repo.count()
-    console.log(count_num);
+    // const repo = new CardRepo(Models);
+    // let count_num = await repo.count()
+    // console.log(count_num);
+    // await repo.exists('Pikachu')
+    // const newCard = Card.create({
+    //     cardIndex: count_num + 1,
+    //     cardName: 'zoo'
+    // }).getValue()
+    // await repo.save(newCard);
+    // count_num = await repo.count()
+    // console.log(count_num);
 
-    // await Models.CardModel.create({
-    //     card_id: uuid().toString(),
-    //     card_index: 1,
-    //     card_name: 'Pikachu'
-    // })
-    //
-    //
-    //
-    // const cardCount = await Models.CardModel.count()
+    const d = new Date().getTime()
+    console.log(d)
 }
 
 main();

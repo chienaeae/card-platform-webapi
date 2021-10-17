@@ -6,21 +6,27 @@ import {CreateTraderController} from "../../../modules/trader/useCases/createTra
 import {CreateTraderUseCase} from "../../../modules/trader/useCases/createTrader/CreateTraderUseCase";
 import {fork} from "child_process";
 import {TraderRepo} from "../../../modules/trader/repos/TraderRepo";
+import {CreateCardUseCase} from "../../../modules/card/useCases/createCard/CreateCardUseCase";
+import {CreateCardController} from "../../../modules/card/useCases/createCard/CreateCardController";
 
 const TYPES = {
     ISigner: Symbol.for("ISigner"),
+    IdentityAuthProvider: Symbol.for("IdentityAuthProvider"),
+    // Repo
     IdentityUserRepo: Symbol.for("IdentityUserRepo"),
     TraderRepo: Symbol.for("TraderRepo"),
-    IdentityAuthProvider: Symbol.for("IdentityAuthProvider"),
+    CardRepo:Symbol.for("CardRepo"),
     // Use Case
     RegisterUseCase: Symbol.for("RegisterUseCase"),
     AuthUseCase: Symbol.for("AuthUseCase"),
     IdentityTokenUseCase: Symbol.for("IdentityTokenUseCase"),
     CreateTraderUseCase: Symbol.for("CreateTraderUseCase"),
+    CreateCardUseCase: Symbol.for("CreateCardUseCase"),
     // Controller
     TokenController: Symbol.for("TokenController"),
     RegisterController: Symbol.for("RegisterController"),
-    CreateTraderController: Symbol.for("CreateTraderController")
+    CreateTraderController: Symbol.for("CreateTraderController"),
+    CreateCardController: Symbol.for("CreateCardController")
 };
 
 export { TYPES };

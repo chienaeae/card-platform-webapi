@@ -4,6 +4,7 @@ import {CardId} from "./CardId";
 import {Result} from "../../../core/logic/Result";
 import {AggregateRoot} from "../../../core/domain/AggregateRoot";
 import {CardCreatedEvent} from "./events/CardCreatedEvent";
+import {Guard} from "../../../core/logic/Guard";
 
 interface CardProps {
     cardName: string;
@@ -32,6 +33,11 @@ export class Card extends AggregateRoot<CardProps> {
     }
 
     public static create(props: CardProps, id?: UniqueEntityID): Result<Card> {
+        const guardResult = Guard.againstNullOrUndefined(props.cardName, "cardName");
+
+        if (!guardResult.succeeded) {
+            return Result.fail<Card>(guardResult.message);
+        }
         const card = new Card({
             ...props
         }, id)

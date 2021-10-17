@@ -7,11 +7,14 @@ import {CreateCardDTO} from "./CreateCardDTO";
 import {ICardRepo} from "../../repos/interfaces/ICardRepo";
 import {Card} from "../../domain/Card";
 import {CreateTraderUseCaseResponse} from "../../../trader/useCases/createTrader/CreateTraderUseCase";
+import {inject, injectable} from "inversify";
+import {TYPES} from "../../../../infra/inversify/config/types";
 
 export type CreateCardUseCaseResponse = Either<CreateCardError.CardNameUsed | GenericAppError.UnexpectedError | Result<any>, Result<void>>
 
+@injectable()
 export class CreateCardUseCase implements UseCase<CreateCardDTO, CreateCardUseCaseResponse> {
-    private cardRepo: ICardRepo;
+    @inject(TYPES.CardRepo)private cardRepo: ICardRepo;
 
     async execute(request?: CreateCardDTO): Promise<CreateCardUseCaseResponse> {
         const existsCardCount = await this.cardRepo.count()
