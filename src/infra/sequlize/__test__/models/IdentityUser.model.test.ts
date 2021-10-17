@@ -1,17 +1,12 @@
 import {DataType, Sequelize} from "sequelize-typescript";
 import {IdentityUser} from "../../models/IdentityUser.model";
 import {Trader} from "../../models/Trader.model";
-import {mockSequelize} from "../mock/MockSequelize";
+import {Card} from "../../models/Card.models";
+import {CardTrade} from "../../models/CardTrade.model";
+import {CardOrder} from "../../models/CardOrder.model";
+import {mockSequelize} from "../../mock/MockSequelize";
 
-const {
-    sequelize,
-    dataTypes,
-    checkModelName,
-    checkUniqueIndex,
-    checkPropertyExists
-} = require('sequelize-test-helpers')
 import faker from "faker";
-import {UUID, UUIDV4} from "sequelize";
 
 
 describe('Test IdentityUser Model', () => {
@@ -19,7 +14,7 @@ describe('Test IdentityUser Model', () => {
     let identityUser: IdentityUser
     beforeAll(async () => {
         mockedSequelize = mockSequelize();
-        mockedSequelize.addModels([IdentityUser, Trader]);
+        mockedSequelize.addModels([IdentityUser, Trader, Card, CardTrade, CardOrder]);
         identityUser = new IdentityUser({
             user_id: faker.datatype.uuid(),
             username: faker.internet.userName(),
