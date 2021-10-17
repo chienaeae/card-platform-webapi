@@ -7,8 +7,8 @@ import {
 import {TYPES} from "../../../../infra/inversify/config/types";
 import {ICardRepo} from "../../../card/repos/interfaces/ICardRepo";
 import {left, right} from "../../../../core/logic/Either";
-import {PlaceOrderError} from "../placeOrder/PlaceOrderError";
 import {Result} from "../../../../core/logic/Result";
+import {CardOrderingError} from "./CardOrderingError";
 
 @injectable()
 export class CheckCardIndexUseCase implements ICheckCardIndexUseCase {
@@ -20,7 +20,7 @@ export class CheckCardIndexUseCase implements ICheckCardIndexUseCase {
         const cardIndexExists = await this.cardRepo.cardIndexExists(cardIndex);
 
         if (!cardIndexExists) {
-            return left(new PlaceOrderError.CardIndexDoesntExist(cardIndex)) as CheckCardIndexCaseResponse;
+            return left(new CardOrderingError.CardIndexDoesntExist(cardIndex)) as CheckCardIndexCaseResponse;
         }
         return right(Result.ok<void>()) as CheckCardIndexCaseResponse;
     }

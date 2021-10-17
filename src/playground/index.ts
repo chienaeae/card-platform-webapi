@@ -13,10 +13,111 @@ import {v4 as uuid} from "uuid";
 import {Model} from "sequelize-typescript";
 import {CardRepo} from "../modules/card/repos/CardRepo";
 import {Card} from "../modules/card/domain/Card";
+import AWS from "aws-sdk";
 
 // const a = Models.TraderModel
 
 const container = new Container();
+
+
+function createQueue(){
+    AWS.config.update({region: 'ap-northeast-1'})
+
+    const sqs = new AWS.SQS({apiVersion: '2012-11-05'});
+
+    sqs.createQueue({
+        QueueName: 'card_platform_test_queue',
+        Attributes: {
+            'DelaySeconds': '60',
+            'MessageRetentionPeriod': '86400'
+        }
+    }, (err, data) => {
+        if(err){
+            console.log('Error', err);
+        }else{
+            console.log('Success', data.QueueUrl);
+        }
+    });
+}
+
+function listQueue(){
+    AWS.config.update({region: 'ap-northeast-1'})
+
+    const sqs = new AWS.SQS({apiVersion: '2012-11-05'});
+
+    sqs.listQueues({}, (err, data) => {
+        if(err){
+            console.log('Error', err);
+        }else{
+            console.log('Success', data.QueueUrls);
+        }
+    });
+}
+
+function sendMessage(){
+    AWS.config.update({region: 'ap-northeast-1'})
+
+    const sqs = new AWS.SQS({apiVersion: '2012-11-05'});
+
+    sqs.sendMessage({
+        DelaySeconds: 10,
+        MessageAttributes: {
+            "Title": {
+                DataType: "String",
+                StringValue: "The Whistler"
+            },
+            "Author": {
+                DataType: "String",
+                StringValue: "John Grisham"
+            },
+            "WeeksOn": {
+                DataType: "Number",
+                StringValue: "6"
+            }
+        },
+        MessageBody: "Information about current NY Times fiction bestseller for week of 12/11/2016.",
+        // MessageDeduplicationId: "TheWhistler",  // Required for FIFO queues
+        // MessageGroupId: "Group1",  // Required for FIFO queues
+        QueueUrl: "https://sqs.ap-northeast-1.amazonaws.com/777386378794/card_platform_test_queue"
+    }, (err, data) =>  {
+        if (err) {
+            console.log("Error", err);
+        } else {
+            console.log("Success", data.MessageId);
+        }
+    });
+}
+
+function receiveMessage(){
+    AWS.config.update({region: 'ap-northeast-1'})
+
+    const sqs = new AWS.SQS({apiVersion: '2012-11-05'});
+
+    sqs.receiveMessage({
+        AttributeNames: ['SentTimestamp'],
+        MaxNumberOfMessages: 10,
+        MessageAttributeNames: ['All'],
+        QueueUrl: "https://sqs.ap-northeast-1.amazonaws.com/777386378794/card_platform_test_queue",
+        VisibilityTimeout: 20,
+        WaitTimeSeconds: 0
+    }, (err, data) => {
+        if (err) {
+            console.log("Receive Error", err);
+        }else if(data.Messages){
+            sqs.deleteMessage({
+                QueueUrl: "https://sqs.ap-northeast-1.amazonaws.com/777386378794/card_platform_test_queue",
+                ReceiptHandle: data.Messages[0].ReceiptHandle
+            }, (err, data) => {
+                if(err){
+                    console.log('Delete Error', err);
+                }else{
+                    console.log('Message Deleted', data);
+                }
+            });
+
+        }
+    });
+}
 
 async function main() {
     // container.bind<ITraderRepo>(TYPES.TraderRepo).toDynamicValue(() => new TraderRepo(Models)).inTransientScope();
@@ -40,7 +141,6 @@ async function main() {
     //     }
     // })
 
-
     // const repo = new CardRepo(Models);
     // let count_num = await repo.count()
     // console.log(count_num);
@@ -53,11 +153,7 @@ async function main() {
     // count_num = await repo.count()
     // console.log(count_num);
 
-    // const d = new Date().getTime()
-    // console.log(d)
-    const a = 123
-    const b = 'number'
-    console.log(typeof a === b)
+
 }
 
 main();

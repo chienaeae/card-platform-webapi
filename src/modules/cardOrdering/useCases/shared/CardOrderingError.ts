@@ -1,7 +1,7 @@
 import {UseCaseError} from "../../../../core/logic/UseCaseError";
 import {Result} from "../../../../core/logic/Result";
 
-export namespace PlaceOrderError{
+export namespace CardOrderingError{
     export class TraderDoesntExist extends Result<UseCaseError>{
         constructor() {
             super(false, {

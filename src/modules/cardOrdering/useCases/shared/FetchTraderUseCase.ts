@@ -11,7 +11,7 @@ import {
 } from "./interfaces/IFetchTraderUseCase";
 import {Result} from "../../../../core/logic/Result";
 import {left, right} from "../../../../core/logic/Either";
-import {PlaceOrderError} from "../placeOrder/PlaceOrderError";
+import {CardOrderingError} from "./CardOrderingError";
 
 
 @injectable()
@@ -24,7 +24,7 @@ export class FetchTraderUseCase implements IFetchTraderUseCase {
         const trader = await this.traderRepo.findTraderByIdentityUserId(userId)
 
         if (!!trader == false){
-            return left(new PlaceOrderError.TraderDoesntExist())as FetchTraderUseCaseResponse
+            return left(new CardOrderingError.TraderDoesntExist())as FetchTraderUseCaseResponse
         }
 
         return right(Result.ok<FetchTraderResponseDTO>({traderId: trader.id.toString()})) as FetchTraderUseCaseResponse;

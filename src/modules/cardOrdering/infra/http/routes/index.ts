@@ -5,14 +5,13 @@ import {BaseController} from "../../../../../core/infra/BaseController";
 import {TYPES} from "../../../../../infra/inversify/config/types";
 
 const cardOrderingRouter = express.Router();
-
 cardOrderingRouter.use(bodyParser.json());
-cardOrderingRouter.post("/", async (req: express.Request, res: express.Response) => {
+cardOrderingRouter.post("/trader/cardOrder", async (req: express.Request, res: express.Response) => {
     await container.get<BaseController>(TYPES.PlaceOrderController).execute(req, res);
 });
 
 
-cardOrderingRouter.get("/status", async (req: express.Request, res: express.Response) => {
+cardOrderingRouter.get("/trader/cardOrders/status", async (req: express.Request, res: express.Response) => {
     await container.get<BaseController>(TYPES.GetOrdersController).execute(req, res);
 });
 

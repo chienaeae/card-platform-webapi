@@ -2,12 +2,9 @@ import {AuthProvider, BaseController} from "../../../../core/infra/BaseControlle
 import express from "express";
 import {inject, injectable} from "inversify";
 import {TYPES} from "../../../../infra/inversify/config/types";
-import {FetchTraderResponseDTO, IFetchTraderUseCase} from "../shared/interfaces/IFetchTraderUseCase";
-import {Trader} from "../../../trader/domain/Trader";
 import {PlaceOrderRequestDTO} from "./PlaceOrderRequestDTO";
-import {UseCase} from "../../../../core/domain/UseCase";
 import {IPlaceOrderUseCase, PlaceOrderDTO} from "./interfaces/IPlaceOrderUseCase";
-import {PlaceOrderError} from "./PlaceOrderError";
+import {CardOrderingError} from "../shared/CardOrderingError";
 
 @injectable()
 export class PlaceOrderController extends BaseController {
@@ -28,8 +25,8 @@ export class PlaceOrderController extends BaseController {
             if (result.isLeft()) {
                 const error = result.value;
                 switch (error.constructor) {
-                    case PlaceOrderError.TraderDoesntExist:
-                    case PlaceOrderError.CardIndexDoesntExist:
+                    case CardOrderingError.TraderDoesntExist:
+                    case CardOrderingError.CardIndexDoesntExist:
                         return this.clientError(result.value.errorValue().message)
                     default:
                         console.log(error.errorValue())

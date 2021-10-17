@@ -24,10 +24,17 @@ export class CardOrderMap extends Mapper<CardOrder> {
     }
 
     public static toDomain(raw: any): CardOrder {
+        // Decimal Type (string) to number
+        const priceOrError = CardOrderPrice.create(parseFloat(raw.order_price));
+        if(priceOrError.isFailure){
+            console.log(priceOrError.errorValue())
+            return null;
+        }
+
         const cardOrderError = CardOrder.create({
             traderId: TraderId.create(new UniqueEntityID(raw.order_trader_id)),
             cardIndex: raw.order_card_index,
-            price: CardOrderPrice.create(raw.order_price).getValue(),
+            price: priceOrError.getValue(),
             status: CardOrderStatus.create(raw.order_status).getValue(),
             type: CardOrderType.create(raw.order_type).getValue(),
             orderedTime: raw.ordered_time

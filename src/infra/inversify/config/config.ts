@@ -14,8 +14,10 @@ import {AuthDTO} from "../../../modules/identityUser/useCases/identityAuth/AuthD
 import {AuthResponse, AuthUseCase} from "../../../modules/identityUser/useCases/identityAuth/AuthUseCase";
 import {IdentityUser} from "../../../modules/identityUser/domain/IdentityUser";
 import {Result} from "../../../core/logic/Result";
-import {IdentityTokenDTO} from "../../../modules/identityUser/useCases/identityAuth/IdentityTokenDTO";
-import {IdentityTokenUseCase} from "../../../modules/identityUser/useCases/identityAuth/IdentityTokenUseCase";
+import {
+    IdentityTokenUseCase,
+    TokenResponseDTO
+} from "../../../modules/identityUser/useCases/identityAuth/IdentityTokenUseCase";
 import {AuthProvider, BaseController} from "../../../core/infra/BaseController";
 import {IdentityAuthProvider} from "../../../modules/identityUser/useCases/identityAuth/IdentityAuthProvider";
 import {TokenController} from "../../../modules/identityUser/useCases/identityAuth/TokenController";
@@ -46,6 +48,8 @@ import {CardOrderRepo} from "../../../modules/cardOrdering/repos/CardOrderRepo";
 import {ICheckCardIndexUseCase} from "../../../modules/cardOrdering/useCases/shared/interfaces/ICheckCardIndexUseCase";
 import {CheckCardIndexUseCase} from "../../../modules/cardOrdering/useCases/shared/CheckCardIndexUseCase";
 import {GetOrdersController} from "../../../modules/cardOrdering/useCases/getOrders/GetOrdersController";
+import {GetOrdersUseCase} from "../../../modules/cardOrdering/useCases/getOrders/GetOrdersUseCase";
+import {IGetOrdersUseCase} from "../../../modules/cardOrdering/useCases/getOrders/interfaces/IGetOrdersUseCase";
 
 const container = new Container();
 container.bind<ISigner>(TYPES.ISigner).toDynamicValue(() => new JWTSigner(secret, verifyOptions, signOptions)).inSingletonScope();
@@ -58,13 +62,14 @@ container.bind<ICardOrderRepo>(TYPES.CardOrderRepo).toDynamicValue(() => new Car
 // UseCase
 container.bind<UseCase<RegisterDTO, Promise<RegisterUseCaseResponse>>>(TYPES.RegisterUseCase).to(RegisterUseCase).inTransientScope();
 container.bind<UseCase<AuthDTO, Promise<AuthResponse>>>(TYPES.AuthUseCase).to(AuthUseCase).inTransientScope();
-container.bind<UseCase<IdentityUser, Promise<Result<IdentityTokenDTO>>>>(TYPES.IdentityTokenUseCase).to(IdentityTokenUseCase).inSingletonScope();
+container.bind<UseCase<IdentityUser, Promise<Result<TokenResponseDTO>>>>(TYPES.IdentityTokenUseCase).to(IdentityTokenUseCase).inSingletonScope();
 container.bind<UseCase<CreateTraderDTO, Promise<CreateTraderUseCaseResponse>>>(TYPES.CreateTraderUseCase).to(CreateTraderUseCase).inSingletonScope();
 container.bind<UseCase<CreateCardDTO, CreateCardUseCaseResponse>>(TYPES.CreateCardUseCase).to(CreateCardUseCase).inSingletonScope();
 // Custom UseCase
-container.bind<IPlaceOrderUseCase>(TYPES.PlaceOrderUseCase).to(PlaceOrderUseCase).inSingletonScope()
-container.bind<IFetchTraderUseCase>(TYPES.FetchTraderUseCase).to(FetchTraderUseCase).inSingletonScope()
-container.bind<ICheckCardIndexUseCase>(TYPES.CheckCardIndexUseCase).to(CheckCardIndexUseCase).inSingletonScope()
+container.bind<IPlaceOrderUseCase>(TYPES.PlaceOrderUseCase).to(PlaceOrderUseCase).inSingletonScope();
+container.bind<IFetchTraderUseCase>(TYPES.FetchTraderUseCase).to(FetchTraderUseCase).inSingletonScope();
+container.bind<ICheckCardIndexUseCase>(TYPES.CheckCardIndexUseCase).to(CheckCardIndexUseCase).inSingletonScope();
+container.bind<IGetOrdersUseCase>(TYPES.GetOrdersUseCase).to(GetOrdersUseCase).inSingletonScope();
 // Controller
 container.bind<BaseController>(TYPES.RegisterController).to(RegisterController).inTransientScope();
 container.bind<BaseController>(TYPES.TokenController).to(TokenController).inTransientScope();

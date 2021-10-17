@@ -6,8 +6,8 @@ import {cardOrderingRouter} from "../../../modules/cardOrdering/infra/http/route
 
 const v1Router: Router = express.Router();
 
+v1Router.use('/', cardOrderingRouter);
 v1Router.use('/identity', identityUserRouter);
-v1Router.use('/trader/cardOrdering', cardOrderingRouter);
 v1Router.use('/trader', traderRouter);
 v1Router.use('/card', cardRouter);
 v1Router.get('/', (req: Request, res: Response) => {

@@ -13,6 +13,7 @@ import {PlaceOrderController} from "../../../modules/cardOrdering/useCases/place
 import {PlaceOrderUseCase} from "../../../modules/cardOrdering/useCases/placeOrder/PlaceOrderUseCase";
 import {CheckCardIndexUseCase} from "../../../modules/cardOrdering/useCases/shared/CheckCardIndexUseCase";
 import {GetOrdersController} from "../../../modules/cardOrdering/useCases/getOrders/GetOrdersController";
+import {GetOrdersUseCase} from "../../../modules/cardOrdering/useCases/getOrders/GetOrdersUseCase";
 
 const TYPES = {
     ISigner: Symbol.for("ISigner"),
@@ -31,6 +32,7 @@ const TYPES = {
     FetchTraderUseCase: Symbol.for("FetchTraderUseCase"),
     PlaceOrderUseCase: Symbol.for("PlaceOrderUseCase"),
     CheckCardIndexUseCase: Symbol.for("CheckCardIndexUseCase"),
+    GetOrdersUseCase: Symbol.for("GetOrdersUseCase"),
     // Controller
     TokenController: Symbol.for("TokenController"),
     RegisterController: Symbol.for("RegisterController"),
