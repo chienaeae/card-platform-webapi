@@ -30,6 +30,22 @@ export class Guard {
         return {succeeded: true}
     }
 
+    public static againstInvalidTypes(value: any, validTypes: Array<string>, argumentName: string): IGuardResult{
+        let isValid = false;
+        validTypes.forEach(validType => {
+            if (typeof value === validType){
+                isValid = true;
+            }
+        })
+        if (isValid){
+            return {succeeded: true}
+        }
+        return {
+            succeeded: false,
+            message: `${argumentName} isn't oneOf the correct types in ${JSON.stringify(validTypes)}. Got "${value}".`
+        }
+    }
+
     public static isOneOf(value: any, validValues: any[], argumentName: string): IGuardResult {
         let isValid = false;
         validValues.forEach(validValue => {

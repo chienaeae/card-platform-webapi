@@ -14,7 +14,7 @@ export type CreateCardUseCaseResponse = Either<CreateCardError.CardNameUsed | Ge
 
 @injectable()
 export class CreateCardUseCase implements UseCase<CreateCardDTO, CreateCardUseCaseResponse> {
-    @inject(TYPES.CardRepo)private cardRepo: ICardRepo;
+    @inject(TYPES.CardRepo) private cardRepo: ICardRepo;
 
     async execute(request?: CreateCardDTO): Promise<CreateCardUseCaseResponse> {
         const existsCardCount = await this.cardRepo.count()
@@ -41,4 +41,5 @@ export class CreateCardUseCase implements UseCase<CreateCardDTO, CreateCardUseCa
 
         return right(Result.ok<void>()) as CreateTraderUseCaseResponse;
     }
+
 }

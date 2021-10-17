@@ -5,5 +5,7 @@ export interface ICardRepo{
 
     exists(cardName: string): Promise<boolean>;
 
+    cardIndexExists(cardIndex: number): Promise<boolean>;
+
     save(card: Card): Promise<void>
 }

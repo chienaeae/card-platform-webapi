@@ -19,10 +19,16 @@ export class CardOrderPrice extends ValueObject<CardOrderPriceProps>{
     }
 
     public static create(price: number): Result<CardOrderPrice>{
+        const guardTypeResult = Guard.againstInvalidTypes(price, ['number'], 'price');
+        if(!guardTypeResult.succeeded){
+            return Result.fail<CardOrderPrice>(guardTypeResult.message);
+        }
+
         const guardResult = Guard.againstNullOrUndefined(price, 'price');
         if(!guardResult.succeeded){
             return Result.fail<CardOrderPrice>(guardResult.message);
         }
+
         if(price < this.MINIMUM_PRICE || price > this.MAXIMUM_PRICE){
             return Result.fail<CardOrderPrice>('Card ordering price doesnt meet criteria [in 0.0-10.0 range].');
         }

@@ -27,6 +27,11 @@ export class CardOrderType extends ValueObject<CardOrderTypeProps>{
     }
 
     public static create(orderingType: string): Result<CardOrderType>{
+        const guardTypeResult = Guard.againstInvalidTypes(orderingType, ['string'], 'orderingType');
+        if(!guardTypeResult.succeeded){
+            return Result.fail<CardOrderType>(guardTypeResult.message);
+        }
+
         const nullGuardResult = Guard.againstNullOrUndefined(orderingType, 'type');
         if(!nullGuardResult.succeeded){
             return Result.fail<CardOrderType>(nullGuardResult.message);

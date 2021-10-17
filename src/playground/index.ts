@@ -53,8 +53,11 @@ async function main() {
     // count_num = await repo.count()
     // console.log(count_num);
 
-    const d = new Date().getTime()
-    console.log(d)
+    // const d = new Date().getTime()
+    // console.log(d)
+    const a = 123
+    const b = 'number'
+    console.log(typeof a === b)
 }
 
 main();

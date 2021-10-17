@@ -27,6 +27,13 @@ export class CardRepo implements ICardRepo{
         return !! rawCard === true;
     }
 
+    async cardIndexExists(cardIndex: number): Promise<boolean> {
+        const baseQuery = this.createBaseQuery();
+        baseQuery.where['card_index'] = cardIndex
+        const rawCard = await this.models.CardModel.findOne(baseQuery);
+        return !! rawCard === true;
+    }
+
     async save(card: Card): Promise<void> {
         const rawCard = await CardMap.toPersistence(card);
         try{

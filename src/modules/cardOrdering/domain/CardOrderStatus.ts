@@ -31,6 +31,11 @@ export class CardOrderStatus extends ValueObject<CardOrderStatusProps> {
     }
 
     public static create(statusCode: number): Result<CardOrderStatus> {
+        const guardTypeResult = Guard.againstInvalidTypes(statusCode, ['number'], 'statusCode');
+        if(!guardTypeResult.succeeded){
+            return Result.fail<CardOrderStatus>(guardTypeResult.message);
+        }
+
         const guardResult = Guard.againstNullOrUndefined(statusCode, 'statusCode');
 
         if (!guardResult.succeeded) {
