@@ -1,3 +1,6 @@
 [submodule "reference/card-platform-library"]
 	path = reference/card-platform-library
 	url = https://github.com/chienaeae/card-platform-library.git
+[submodule "src/reference/card-platform-library"]
+	path = src/reference/card-platform-library
+	url = https://github.com/chienaeae/card-platform-library.git
