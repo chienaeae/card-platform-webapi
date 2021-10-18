@@ -21,6 +21,8 @@ phases:
       - git init
       - git remote add origin $GIT_URL
       - git fetch origin
+      - git branch
+      - git checkout -f $GIT_RESOLVED_BRANCH
       - git submodule init
       - git submodule update --recursive
       - echo InstallingDependencies
