@@ -1,5 +1,12 @@
 version: 0.2
 
+env:
+  variables:
+    git_url: git@github.com:chienaeae/card-platform-webapi.git
+  parameter-store:
+    ssh_key: github-ssh-key
+    ssh_pub: github-ssh-key.pub
+
 phases:
   install:
     runtime-versions:
@@ -8,9 +15,17 @@ phases:
       - npm install -g typescript
   pre_build:
     commands:
-      - echo InstallingDependencies
+      - mkdir -p ~/.ssh
+      - echo "$ssh_key" > ~/.ssh/id_rsa
+      - echo "$ssh_pub" > ~/.ssh/id_rsa.pub
+      - chmod 600 ~/.ssh/id_rsa
+      - eval "$(ssh-agent -s)"
+      - git init
+      - git remote add origin "$git_url"
+      - git fetch origin
       - git submodule init
       - git submodule update –recursive –remote
+      - echo InstallingDependencies
       - npm install
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS
         --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
