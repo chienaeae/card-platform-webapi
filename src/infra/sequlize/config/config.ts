@@ -1,11 +1,11 @@
-import {Card as CardModel} from "../../../../../card-platform-library/src/infra/sequlize/models/Card.models";
-import {CardOrder as CardOrderModel} from "../../../../../card-platform-library/src/infra/sequlize/models/CardOrder.model";
-import {CardTrade as CardTradeModel} from "../../../../../card-platform-library/src/infra/sequlize/models/CardTrade.model";
-import {Trader as TraderModel} from "../../../../../card-platform-library/src/infra/sequlize/models/Trader.model";
-import {IdentityUser as IdentityUserModel} from "../../../../../card-platform-library/src/infra/sequlize/models/IdentityUser.model";
+import {Card as CardModel} from "../../../reference/card-platform-library/src/infra/sequlize/models/Card.models";
+import {CardOrder as CardOrderModel} from "../../../reference/card-platform-library/src/infra/sequlize/models/CardOrder.model";
+import {CardTrade as CardTradeModel} from "../../../reference/card-platform-library/src/infra/sequlize/models/CardTrade.model";
+import {Trader as TraderModel} from "../../../reference/card-platform-library/src/infra/sequlize/models/Trader.model";
+import {IdentityUser as IdentityUserModel} from "../../../reference/card-platform-library/src/infra/sequlize/models/IdentityUser.model";
 import * as dotenv from "dotenv";
 import {Sequelize} from "sequelize-typescript";
-import initSequelize from "../../../../reference/card-platform-library/src/infra/sequlize";
+import initSequelize from "../../../reference/card-platform-library/src/infra/sequlize";
 
 dotenv.config();
 

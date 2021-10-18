@@ -1,7 +1,7 @@
 import express, {Request, Response} from "express";
 import bodyParser from "body-parser";
-import {BaseController} from "../../../../../../card-platform-library/src/core/infra/BaseController";
-import {TYPES} from "../../../../../../card-platform-library/src/infra/inversify/config/types";
+import {BaseController} from "../../../../reference/card-platform-library/src/core/infra/BaseController";
+import {TYPES} from "../../../../reference/card-platform-library/src/infra/inversify/types";
 import container from "../../../inversify/config/config";
 
 const identityUserRouter = express.Router()
