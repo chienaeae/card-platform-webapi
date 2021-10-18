@@ -1,55 +1,55 @@
 import {Container} from "inversify";
 import "reflect-metadata";
 import {TYPES} from "./types";
-import {ISigner} from "../../../modules/identityUser/services/Authorization/interfaces/ISigner";
-import {JWTSigner} from "../../../modules/identityUser/services/Authorization/JWTSigner";
-import {IIdentityUserRepo} from "../../../modules/identityUser/repos/interfaces/IIdentityUserRepo";
-import {IdentityUserRepo} from "../../../modules/identityUser/repos/IdentityUserRepo";
-import {secret, signOptions, verifyOptions} from "../../jwt/config/config";
-import * as Models from "../../sequlize/models"
-import {UseCase} from "../../../core/domain/UseCase";
-import {RegisterUseCase, RegisterUseCaseResponse} from "../../../modules/identityUser/useCases/register/RegisterUseCase"
-import {RegisterDTO} from "../../../modules/identityUser/useCases/register/RegisterDTO";
-import {AuthDTO} from "../../../modules/identityUser/useCases/identityAuth/AuthDTO";
-import {AuthResponse, AuthUseCase} from "../../../modules/identityUser/useCases/identityAuth/AuthUseCase";
-import {IdentityUser} from "../../../modules/identityUser/domain/IdentityUser";
-import {Result} from "../../../core/logic/Result";
+import {ISigner} from "card-platform-library/src/modules/identityUser/services/Authorization/interfaces/ISigner";
+import {JWTSigner} from "card-platform-library/src/modules/identityUser/services/Authorization/JWTSigner";
+import {IIdentityUserRepo} from "card-platform-library/src/modules/identityUser/repos/interfaces/IIdentityUserRepo";
+import {IdentityUserRepo} from "card-platform-library/src/modules/identityUser/repos/IdentityUserRepo";
+import {secret, signOptions, verifyOptions} from "card-platform-library/src/infra/jwt/config/config";
+import * as Models from "card-platform-library/src/infra/sequlize/models"
+import {UseCase} from "card-platform-library/src/core/domain/UseCase";
+import {RegisterUseCase, RegisterUseCaseResponse} from "card-platform-library/src/modules/identityUser/useCases/register/RegisterUseCase"
+import {RegisterDTO} from "card-platform-library/src/modules/identityUser/useCases/register/RegisterDTO";
+import {AuthDTO} from "card-platform-library/src/modules/identityUser/useCases/identityAuth/AuthDTO";
+import {AuthResponse, AuthUseCase} from "card-platform-library/src/modules/identityUser/useCases/identityAuth/AuthUseCase";
+import {IdentityUser} from "card-platform-library/src/modules/identityUser/domain/IdentityUser";
+import {Result} from "card-platform-library/src/core/logic/Result";
 import {
     IdentityTokenUseCase,
     TokenResponseDTO
-} from "../../../modules/identityUser/useCases/identityAuth/IdentityTokenUseCase";
-import {AuthProvider, BaseController} from "../../../core/infra/BaseController";
-import {IdentityAuthProvider} from "../../../modules/identityUser/useCases/identityAuth/IdentityAuthProvider";
-import {TokenController} from "../../../modules/identityUser/useCases/identityAuth/TokenController";
-import {RegisterController} from "../../../modules/identityUser/useCases/register/RegisterController";
-import {CreateTraderController} from "../../../modules/trader/useCases/createTrader/CreateTraderController";
-import {CreateTraderDTO} from "../../../modules/trader/useCases/createTrader/CreateTraderDTO";
+} from "card-platform-library/src/modules/identityUser/useCases/identityAuth/IdentityTokenUseCase";
+import {AuthProvider, BaseController} from "card-platform-library/src/core/infra/BaseController";
+import {IdentityAuthProvider} from "card-platform-library/src/modules/identityUser/useCases/identityAuth/IdentityAuthProvider";
+import {TokenController} from "card-platform-library/src/modules/identityUser/useCases/identityAuth/TokenController";
+import {RegisterController} from "card-platform-library/src/modules/identityUser/useCases/register/RegisterController";
+import {CreateTraderController} from "card-platform-library/src/modules/trader/useCases/createTrader/CreateTraderController";
+import {CreateTraderDTO} from "card-platform-library/src/modules/trader/useCases/createTrader/CreateTraderDTO";
 import {
     CreateTraderUseCase,
     CreateTraderUseCaseResponse
-} from "../../../modules/trader/useCases/createTrader/CreateTraderUseCase";
-import {TraderRepo} from "../../../modules/trader/repos/TraderRepo";
-import {ITraderRepo} from "../../../modules/trader/repos/interfaces/ITraderRepo";
-import {CreateCardDTO} from "../../../modules/card/useCases/createCard/CreateCardDTO";
+} from "card-platform-library/src/modules/trader/useCases/createTrader/CreateTraderUseCase";
+import {TraderRepo} from "card-platform-library/src/modules/trader/repos/TraderRepo";
+import {ITraderRepo} from "card-platform-library/src/modules/trader/repos/interfaces/ITraderRepo";
+import {CreateCardDTO} from "card-platform-library/src/modules/card/useCases/createCard/CreateCardDTO";
 import {
     CreateCardUseCase,
     CreateCardUseCaseResponse
-} from "../../../modules/card/useCases/createCard/CreateCardUseCase";
-import {CreateCardController} from "../../../modules/card/useCases/createCard/CreateCardController";
-import {ICardRepo} from "../../../modules/card/repos/interfaces/ICardRepo";
-import {CardRepo} from "../../../modules/card/repos/CardRepo";
-import {IFetchTraderUseCase} from "../../../modules/cardOrdering/useCases/shared/interfaces/IFetchTraderUseCase";
-import {FetchTraderUseCase} from "../../../modules/cardOrdering/useCases/shared/FetchTraderUseCase";
-import {PlaceOrderController} from "../../../modules/cardOrdering/useCases/placeOrder/PlaceOrderController";
-import {PlaceOrderUseCase} from "../../../modules/cardOrdering/useCases/placeOrder/PlaceOrderUseCase";
-import {IPlaceOrderUseCase} from "../../../modules/cardOrdering/useCases/placeOrder/interfaces/IPlaceOrderUseCase";
-import {ICardOrderRepo} from "../../../modules/cardOrdering/repos/interfaces/ICardOrderRepo";
-import {CardOrderRepo} from "../../../modules/cardOrdering/repos/CardOrderRepo";
-import {ICheckCardIndexUseCase} from "../../../modules/cardOrdering/useCases/shared/interfaces/ICheckCardIndexUseCase";
-import {CheckCardIndexUseCase} from "../../../modules/cardOrdering/useCases/shared/CheckCardIndexUseCase";
-import {GetOrdersController} from "../../../modules/cardOrdering/useCases/getOrders/GetOrdersController";
-import {GetOrdersUseCase} from "../../../modules/cardOrdering/useCases/getOrders/GetOrdersUseCase";
-import {IGetOrdersUseCase} from "../../../modules/cardOrdering/useCases/getOrders/interfaces/IGetOrdersUseCase";
+} from "card-platform-library/src/modules/card/useCases/createCard/CreateCardUseCase";
+import {CreateCardController} from "card-platform-library/src/modules/card/useCases/createCard/CreateCardController";
+import {ICardRepo} from "card-platform-library/src/modules/card/repos/interfaces/ICardRepo";
+import {CardRepo} from "card-platform-library/src/modules/card/repos/CardRepo";
+import {IFetchTraderUseCase} from "card-platform-library/src/modules/cardOrdering/useCases/shared/interfaces/IFetchTraderUseCase";
+import {FetchTraderUseCase} from "card-platform-library/src/modules/cardOrdering/useCases/shared/FetchTraderUseCase";
+import {PlaceOrderController} from "card-platform-library/src/modules/cardOrdering/useCases/placeOrder/PlaceOrderController";
+import {PlaceOrderUseCase} from "card-platform-library/src/modules/cardOrdering/useCases/placeOrder/PlaceOrderUseCase";
+import {IPlaceOrderUseCase} from "card-platform-library/src/modules/cardOrdering/useCases/placeOrder/interfaces/IPlaceOrderUseCase";
+import {ICardOrderRepo} from "card-platform-library/src/modules/cardOrdering/repos/interfaces/ICardOrderRepo";
+import {CardOrderRepo} from "card-platform-library/src/modules/cardOrdering/repos/CardOrderRepo";
+import {ICheckCardIndexUseCase} from "card-platform-library/src/modules/cardOrdering/useCases/shared/interfaces/ICheckCardIndexUseCase";
+import {CheckCardIndexUseCase} from "card-platform-library/src/modules/cardOrdering/useCases/shared/CheckCardIndexUseCase";
+import {GetOrdersController} from "card-platform-library/src/modules/cardOrdering/useCases/getOrders/GetOrdersController";
+import {GetOrdersUseCase} from "card-platform-library/src/modules/cardOrdering/useCases/getOrders/GetOrdersUseCase";
+import {IGetOrdersUseCase} from "card-platform-library/src/modules/cardOrdering/useCases/getOrders/interfaces/IGetOrdersUseCase";
 
 const container = new Container();
 container.bind<ISigner>(TYPES.ISigner).toDynamicValue(() => new JWTSigner(secret, verifyOptions, signOptions)).inSingletonScope();

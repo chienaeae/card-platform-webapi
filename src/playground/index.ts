@@ -1,21 +1,5 @@
-import * as Models from '../infra/sequlize/models';
-import {
-    CreateTraderUseCase,
-    CreateTraderUseCaseResponse
-} from "../modules/trader/useCases/createTrader/CreateTraderUseCase";
 import {Container} from "inversify";
-import {UseCase} from "../core/domain/UseCase";
-import {CreateTraderDTO} from "../modules/trader/useCases/createTrader/CreateTraderDTO";
-import {TYPES} from "../infra/inversify/config/types";
-import {ITraderRepo} from "../modules/trader/repos/interfaces/ITraderRepo";
-import {TraderRepo} from "../modules/trader/repos/TraderRepo";
-import {v4 as uuid} from "uuid";
-import {Model} from "sequelize-typescript";
-import {CardRepo} from "../modules/card/repos/CardRepo";
-import {Card} from "../modules/card/domain/Card";
 import AWS from "aws-sdk";
-
-// const a = Models.TraderModel
 
 const container = new Container();
 
