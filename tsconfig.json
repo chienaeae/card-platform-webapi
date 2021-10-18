@@ -6,7 +6,7 @@
     "pretty": true,
     "inlineSourceMap": true,
     "target": "es6",
-    "rootDir": "./src/",
+    "rootDirs": ["./src/", "./reference/"],
     "outDir": "./dist",
     "strict": true,
     "noImplicitAny": false, /* 允許不強制使用 any 型別 (針對 strict 政策)*/
@@ -31,9 +31,13 @@
   },
   "include": [
     "./src/**/*.ts",
-    "./src/**/*.js"
+    "./src/**/*.js",
+    "./reference/**/*.ts",
+    "./reference/**/*.js"
   ],
   "exclude": [
+    "./reference/node_modules",
+    "./reference/dist",
     "./node_modules",
     "./dist"
   ]
