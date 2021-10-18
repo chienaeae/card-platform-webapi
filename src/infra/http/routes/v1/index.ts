@@ -13,7 +13,7 @@ v1Router.use('/card', cardRouter);
 v1Router.get('/', (req: Request, res: Response) => {
     res.send('<h1>Card Platform App</h1>' +
         ' <h4>Message: Success</h4>' +
-        ' <p>Version 1.0.1</p>')
+        ' <p>Version 1.0.2</p>')
 });
 
 
