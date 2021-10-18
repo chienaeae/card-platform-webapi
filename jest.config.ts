@@ -10,7 +10,8 @@ const config: Config.InitialOptions = {
     testEnvironment: 'node',
     verbose: true,
     collectCoverage: true,
-    collectCoverageFrom: ['<rootDir>/src/**/*.ts', '<rootDir>/reference/**/*.ts'],
+    collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
+    modulePathIgnorePatterns: ['<rootDir>/src/reference/'],
     setupFiles: [
         'dotenv/config'
     ]
