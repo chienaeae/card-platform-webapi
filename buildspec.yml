@@ -9,6 +9,8 @@ phases:
   pre_build:
     commands:
       - echo InstallingDependencies
+      - git submodule init
+      - git submodule update –recursive –remote
       - npm install
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS
         --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
