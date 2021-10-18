@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import {TYPES} from "../../../../reference/card-platform-library/src/infra/inversify/types";
+import {TYPES} from "card-platform-library/src/infra/inversify/types";
 import {ISigner} from "card-platform-library/src/modules/identityUser/services/Authorization/interfaces/ISigner";
 import {JWTSigner} from "card-platform-library/src/modules/identityUser/services/Authorization/JWTSigner";
 import {IIdentityUserRepo} from "card-platform-library/src/modules/identityUser/repos/interfaces/IIdentityUserRepo";
