@@ -1,12 +1,9 @@
-import {Container} from "inversify";
 import "reflect-metadata";
-import {TYPES} from "./types";
+import {TYPES} from "../../../../reference/card-platform-library/src/infra/inversify/types";
 import {ISigner} from "card-platform-library/src/modules/identityUser/services/Authorization/interfaces/ISigner";
 import {JWTSigner} from "card-platform-library/src/modules/identityUser/services/Authorization/JWTSigner";
 import {IIdentityUserRepo} from "card-platform-library/src/modules/identityUser/repos/interfaces/IIdentityUserRepo";
 import {IdentityUserRepo} from "card-platform-library/src/modules/identityUser/repos/IdentityUserRepo";
-import {secret, signOptions, verifyOptions} from "card-platform-library/src/infra/jwt/config/config";
-import * as Models from "card-platform-library/src/infra/sequlize/models"
 import {UseCase} from "card-platform-library/src/core/domain/UseCase";
 import {RegisterUseCase, RegisterUseCaseResponse} from "card-platform-library/src/modules/identityUser/useCases/register/RegisterUseCase"
 import {RegisterDTO} from "card-platform-library/src/modules/identityUser/useCases/register/RegisterDTO";
@@ -50,6 +47,9 @@ import {CheckCardIndexUseCase} from "card-platform-library/src/modules/cardOrder
 import {GetOrdersController} from "card-platform-library/src/modules/cardOrdering/useCases/getOrders/GetOrdersController";
 import {GetOrdersUseCase} from "card-platform-library/src/modules/cardOrdering/useCases/getOrders/GetOrdersUseCase";
 import {IGetOrdersUseCase} from "card-platform-library/src/modules/cardOrdering/useCases/getOrders/interfaces/IGetOrdersUseCase";
+import * as Models from "../../sequlize/config/config"
+import {secret, signOptions, verifyOptions} from "../../jwt/config/config";
+import {Container} from "inversify";
 
 const container = new Container();
 container.bind<ISigner>(TYPES.ISigner).toDynamicValue(() => new JWTSigner(secret, verifyOptions, signOptions)).inSingletonScope();

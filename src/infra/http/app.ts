@@ -1,5 +1,5 @@
 import express from "express";
-import {v1Router} from "./api/v1";
+import {v1Router} from "./routes/v1";
 import * as http from "http";
 
 export class App {
