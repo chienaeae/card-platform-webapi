@@ -1,8 +1,8 @@
 import express, {Router, Request, Response} from "express";
-import {identityUserRouter} from "card-platform-library/src/modules/identityUser/infra/http/routes";
-import {traderRouter} from "card-platform-library/src/modules/trader/infra/http/routes";
-import {cardRouter} from "card-platform-library/src/modules/card/infra/http/routes";
-import {cardOrderingRouter} from "card-platform-library/src/modules/cardOrdering/infra/http/routes";
+import {identityUserRouter} from "./identityUserRouter";
+import {traderRouter} from "./traderRouter";
+import {cardRouter} from "./cardRouter";
+import {cardOrderingRouter} from "./cardOrderingRouter";
 
 const v1Router: Router = express.Router();
 
