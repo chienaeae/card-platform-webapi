@@ -1,7 +1,7 @@
 import express, {Request, Response} from "express";
 import bodyParser from "body-parser";
-import {BaseController} from "../../../../reference/card-platform-library/src/core/infra/BaseController";
-import {TYPES} from "../../../../reference/card-platform-library/src/infra/inversify/types";
+import {BaseController} from "../../../../core/infra/BaseController";
+import {TYPES} from "../../../inversify/types";
 import container from "../../../inversify/config/config";
 
 
