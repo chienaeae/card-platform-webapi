@@ -1,6 +1,6 @@
 import {App} from "./infra/http/app";
 import * as dotenv from "dotenv";
-import {authConnection} from "./infra/sequlize/config/config";
+import cardPlatformSequel from "./infra/sequlize/config/config";
 
 dotenv.config();
 
@@ -12,7 +12,7 @@ export class Launcher {
     }
 
     public async launchApp() {
-        await authConnection()
+        cardPlatformSequel.authConnection()
         this.server.startServer();
     }
 

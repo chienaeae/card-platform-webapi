@@ -1,12 +1,5 @@
-import {Card as CardModel} from "../../../reference/card-platform-library/src/infra/sequlize/models/Card.models";
-import {CardOrder as CardOrderModel} from "../../../reference/card-platform-library/src/infra/sequlize/models/CardOrder.model";
-import {CardTrade as CardTradeModel} from "../../../reference/card-platform-library/src/infra/sequlize/models/CardTrade.model";
-import {Trader as TraderModel} from "../../../reference/card-platform-library/src/infra/sequlize/models/Trader.model";
-import {IdentityUser as IdentityUserModel} from "../../../reference/card-platform-library/src/infra/sequlize/models/IdentityUser.model";
 import * as dotenv from "dotenv";
-import {Sequelize} from "sequelize-typescript";
-import initSequelize from "../../../reference/card-platform-library/src/infra/sequlize";
-
+import {CardPlatformSequel, DatabaseCredential} from "../../../reference/card-platform-library/src/modules/sequlize";
 dotenv.config();
 
 const databaseCredentials = {
@@ -30,39 +23,11 @@ const databaseCredentials = {
     }
 }
 
-const {username, password, host, database} =
+export const config: DatabaseCredential =
     process.env.NODE_ENV === 'production' ? databaseCredentials.production :
         process.env.NODE_ENV === 'test' ? databaseCredentials.test :
             databaseCredentials.development
 
-const sequelize: Sequelize = initSequelize({
-    database,
-    username,
-    password,
-    host,
-    dialect: 'mysql',
-    port: 3306,
-    dialectOptions: {
-        multipleStatements: true,
-    },
-    pool: {
-        max: 5,
-        min: 0,
-        idle: 10000
-    },
-    logging: false
-});
+const cardPlatformSequel = CardPlatformSequel.create(config)
 
-
-async function authConnection() {
-    try {
-        await sequelize.authenticate();
-        await sequelize.sync();
-        console.log('Connection has been established successfully.');
-    } catch (error) {
-        console.error('Unable to connect to the database:', error);
-    }
-}
-
-
-export {authConnection, CardModel, CardOrderModel, CardTradeModel, TraderModel, IdentityUserModel};
+export default cardPlatformSequel;
