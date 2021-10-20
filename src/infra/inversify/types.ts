@@ -1,6 +1,9 @@
+import {OrderingQueueFIFOPublisher} from "../../reference/card-platform-library/src/modules/sqs/queuePublisher/OrderingQueueFIFOPublisher";
+
 const TYPES = {
     ISigner: Symbol.for("ISigner"),
     IdentityAuthProvider: Symbol.for("IdentityAuthProvider"),
+    OrderingQueueFIFOPublisher: Symbol.for("OrderingQueueFIFOPublisher"),
     // Repo
     IdentityUserRepo: Symbol.for("IdentityUserRepo"),
     TraderRepo: Symbol.for("TraderRepo"),

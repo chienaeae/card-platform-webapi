@@ -50,10 +50,13 @@ import {IGetOrdersUseCase} from "../../../modules/cardOrdering/useCases/getOrder
 import {secret, signOptions, verifyOptions} from "../../jwt/config/config";
 import {Container} from "inversify";
 import cardPlatformSequel from "../../sequlize/config/config";
+import {FIFOPublisher} from "../../../reference/card-platform-library/src/modules/sqs/core/infra/BaseQueuePublisher";
+import {config as orderingQueueConfig, InjectableOrderingQueueFIFOPublisher} from "../../sqs/config/config";
 
 const container = new Container();
 container.bind<ISigner>(TYPES.ISigner).toDynamicValue(() => new JWTSigner(secret, verifyOptions, signOptions)).inSingletonScope();
 container.bind<AuthProvider>(TYPES.IdentityAuthProvider).to(IdentityAuthProvider).inTransientScope();
+container.bind<FIFOPublisher>(TYPES.OrderingQueueFIFOPublisher).toDynamicValue(() => new InjectableOrderingQueueFIFOPublisher({...orderingQueueConfig})).inTransientScope();
 // Repo
 container.bind<ITraderRepo>(TYPES.TraderRepo).toDynamicValue(() => new TraderRepo(cardPlatformSequel.models.traderModel)).inTransientScope();
 container.bind<IIdentityUserRepo>(TYPES.IdentityUserRepo).toDynamicValue(() => new IdentityUserRepo(cardPlatformSequel.models.identityUserModel)).inTransientScope();

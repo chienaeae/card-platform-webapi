@@ -5,11 +5,14 @@ import {TYPES} from "../../../../infra/inversify/types";
 import {PlaceOrderRequestDTO} from "./PlaceOrderRequestDTO";
 import {IPlaceOrderUseCase, PlaceOrderDTO} from "./interfaces/IPlaceOrderUseCase";
 import {CardOrderingError} from "../shared/CardOrderingError";
+import {FIFOPublisher} from "../../../../reference/card-platform-library/src/modules/sqs/core/infra/BaseQueuePublisher";
 
 @injectable()
 export class PlaceOrderController extends BaseController {
     @inject(TYPES.IdentityAuthProvider) protected authProvider: AuthProvider;
     @inject(TYPES.PlaceOrderUseCase) private placeOrderUseCase: IPlaceOrderUseCase;
+    // 暫時放這
+    // @inject(TYPES.OrderingQueueFIFOPublisher) private orderingQueueFIFOPublisher: FIFOPublisher;
 
     protected async executeImpl(req: express.Request, res: express.Response): Promise<any> {
         const isAuth = await this.principal.isAuthenticated()
