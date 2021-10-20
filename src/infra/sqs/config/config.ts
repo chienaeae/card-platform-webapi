@@ -1,4 +1,4 @@
-import {OrderingQueueFIFOPublisher} from "../../../reference/card-platform-library/src/modules/sqs/queuePublisher/OrderingQueueFIFOPublisher";
+import {OrderingQueueFIFOPublisher} from "../../../reference/card-platform-library/src/modules/sqs/orderingQueueFIFO/OrderingQueueFIFOPublisher";
 import {injectable} from "inversify";
 import * as dotenv from "dotenv";
 

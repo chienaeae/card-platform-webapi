@@ -17,4 +17,12 @@ export namespace CardOrderingError{
             } as UseCaseError);
         }
     }
+
+    export class CardOrderProcessedFailure extends Result<UseCaseError>{
+        constructor(orderingId: string) {
+            super(false, {
+                message: `pre ordering ${orderingId} process failed`
+            } as UseCaseError);
+        }
+    }
 }

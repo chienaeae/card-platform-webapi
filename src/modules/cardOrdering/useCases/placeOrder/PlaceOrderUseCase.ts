@@ -13,7 +13,9 @@ import {RegisterUseCaseResponse} from "../../../identityUser/useCases/register/R
 import {TraderId} from "../../../trader/domain/TraderId";
 import {UniqueEntityID} from "../../../../core/domain/UniqueEntityID";
 import {GenericAppError} from "../../../../core/logic/AppError";
-import {CheckCardIndexRequestDTO, ICheckCardIndexUseCase} from "../shared/interfaces/ICheckCardIndexUseCase";
+import {ICheckCardIndexUseCase} from "../shared/interfaces/ICheckCardIndexUseCase";
+import {OrderingQueueFIFOPublisher} from "../../../../reference/card-platform-library/src/modules/sqs/orderingQueueFIFO/OrderingQueueFIFOPublisher";
+import {IOrderProcessUseCase} from "../shared/interfaces/IOrderProcessUseCase";
 
 @injectable()
 export class PlaceOrderUseCase implements IPlaceOrderUseCase {
@@ -22,6 +24,7 @@ export class PlaceOrderUseCase implements IPlaceOrderUseCase {
     @inject(TYPES.FetchTraderUseCase) private fetchTraderUseCase: IFetchTraderUseCase;
     @inject(TYPES.CardOrderRepo) private cardOrderRepo: ICardOrderRepo;
     @inject(TYPES.CheckCardIndexUseCase) private checkCardIndexUseCase: ICheckCardIndexUseCase;
+    @inject(TYPES.OrderProcessUseCase) protected orderProcessUseCase: IOrderProcessUseCase;
 
     async execute(request?: PlaceOrderDTO): Promise<PlaceOrderUseCaseResponse> {
         // fetch trader id
@@ -69,7 +72,11 @@ export class PlaceOrderUseCase implements IPlaceOrderUseCase {
             console.log(err);
             return left(new GenericAppError.UnexpectedError(err)) as PlaceOrderUseCaseResponse
         }
-
+        // Process Order
+        const orderProcessedResult = await this.orderProcessUseCase.execute({cardOrder})
+        if (orderProcessedResult.isLeft()){
+            return orderProcessedResult;
+        }
         return right(Result.ok<void>()) as PlaceOrderUseCaseResponse;
     }
 }

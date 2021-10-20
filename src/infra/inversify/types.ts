@@ -1,4 +1,5 @@
-import {OrderingQueueFIFOPublisher} from "../../reference/card-platform-library/src/modules/sqs/queuePublisher/OrderingQueueFIFOPublisher";
+import {OrderingQueueFIFOPublisher} from "../../reference/card-platform-library/src/modules/sqs/orderingQueueFIFO/OrderingQueueFIFOPublisher";
+import {OrderProcessUseCase} from "../../modules/cardOrdering/useCases/shared/OrderProcessUseCase";
 
 const TYPES = {
     ISigner: Symbol.for("ISigner"),
@@ -19,6 +20,7 @@ const TYPES = {
     PlaceOrderUseCase: Symbol.for("PlaceOrderUseCase"),
     CheckCardIndexUseCase: Symbol.for("CheckCardIndexUseCase"),
     GetOrdersUseCase: Symbol.for("GetOrdersUseCase"),
+    OrderProcessUseCase: Symbol.for("OrderProcessUseCase"),
     // Controller
     TokenController: Symbol.for("TokenController"),
     RegisterController: Symbol.for("RegisterController"),
