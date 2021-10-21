@@ -17,7 +17,6 @@ import {IOrderProcessUseCase} from "../shared/interfaces/IOrderProcessUseCase";
 
 @injectable()
 export class PlaceOrderUseCase implements IPlaceOrderUseCase {
-    private static readonly PLACE_ORDER_DEFAULT_TYPE: number = 0
 
     @inject(TYPES.FetchTraderUseCase) private fetchTraderUseCase: IFetchTraderUseCase;
     @inject(TYPES.CardOrderRepo) private cardOrderRepo: ICardOrderRepo;
@@ -45,7 +44,7 @@ export class PlaceOrderUseCase implements IPlaceOrderUseCase {
         // Create card order
         const cardOrderTraderId = TraderId.create(new UniqueEntityID(fetchTraderResponseDTO.traderId));
         const cardOrderPriceOrError = CardOrderPrice.create(request.price);
-        const cardOrderStatusOrError = CardOrderStatus.create(PlaceOrderUseCase.PLACE_ORDER_DEFAULT_TYPE);
+        const cardOrderStatusOrError = CardOrderStatus.create(CardOrderStatus.IDLE_STATUS);
         const cardOrderTypeOrError = CardOrderType.create(request.type);
         const combinedPropsResult = Result.combine([cardOrderPriceOrError, cardOrderStatusOrError, cardOrderTypeOrError])
         if (combinedPropsResult.isFailure) {

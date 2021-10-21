@@ -28,6 +28,5 @@ export const config: DatabaseCredential =
         process.env.NODE_ENV === 'test' ? databaseCredentials.test :
             databaseCredentials.development
 
-const cardPlatformSequel = CardPlatformSequel.create(config)
-
+const cardPlatformSequel = CardPlatformSequel.create(config, {logging: console.log})
 export default cardPlatformSequel;

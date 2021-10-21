@@ -11,7 +11,7 @@ interface cardOrderInfo{
     id: string,
     price: number,
     cardIndex: number,
-    status: number,
+    status: string,
     type: string,
     orderedTime: number
 }
