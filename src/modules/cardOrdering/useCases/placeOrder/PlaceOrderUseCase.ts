@@ -9,12 +9,10 @@ import {CardOrder} from "../../domain/CardOrder";
 import {CardOrderPrice} from "../../domain/CardOrderPrice";
 import {CardOrderStatus} from "../../domain/CardOrderStatus";
 import {CardOrderType} from "../../domain/CardOrderType";
-import {RegisterUseCaseResponse} from "../../../identityUser/useCases/register/RegisterUseCase";
 import {TraderId} from "../../../trader/domain/TraderId";
 import {UniqueEntityID} from "../../../../core/domain/UniqueEntityID";
 import {GenericAppError} from "../../../../core/logic/AppError";
 import {ICheckCardIndexUseCase} from "../shared/interfaces/ICheckCardIndexUseCase";
-import {OrderingQueueFIFOPublisher} from "../../../../reference/card-platform-library/src/modules/sqs/orderingQueueFIFO/OrderingQueueFIFOPublisher";
 import {IOrderProcessUseCase} from "../shared/interfaces/IOrderProcessUseCase";
 
 @injectable()
@@ -75,6 +73,8 @@ export class PlaceOrderUseCase implements IPlaceOrderUseCase {
         // Process Order
         const orderProcessedResult = await this.orderProcessUseCase.execute({cardOrder})
         if (orderProcessedResult.isLeft()){
+            // Processed failed, urgent to handle
+
             return orderProcessedResult;
         }
         return right(Result.ok<void>()) as PlaceOrderUseCaseResponse;

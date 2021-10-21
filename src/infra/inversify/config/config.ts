@@ -50,7 +50,10 @@ import {IGetOrdersUseCase} from "../../../modules/cardOrdering/useCases/getOrder
 import {secret, signOptions, verifyOptions} from "../../jwt/config/config";
 import {Container} from "inversify";
 import cardPlatformSequel from "../../sequlize/config/config";
-import {config as orderingQueueConfig, InjectableOrderingQueueFIFOPublisher} from "../../sqs/config/config";
+import {
+    config as orderingQueueConfig,
+    orderingQueuePublisher
+} from "../../sqs/config/config";
 import {OrderingQueueFIFOPublisher} from "../../../reference/card-platform-library/src/modules/sqs/orderingQueueFIFO/OrderingQueueFIFOPublisher";
 import {IOrderProcessUseCase} from "../../../modules/cardOrdering/useCases/shared/interfaces/IOrderProcessUseCase";
 import {OrderProcessUseCase} from "../../../modules/cardOrdering/useCases/shared/OrderProcessUseCase";
@@ -58,7 +61,7 @@ import {OrderProcessUseCase} from "../../../modules/cardOrdering/useCases/shared
 const container = new Container();
 container.bind<ISigner>(TYPES.ISigner).toDynamicValue(() => new JWTSigner(secret, verifyOptions, signOptions)).inSingletonScope();
 container.bind<AuthProvider>(TYPES.IdentityAuthProvider).to(IdentityAuthProvider).inTransientScope();
-container.bind<OrderingQueueFIFOPublisher>(TYPES.OrderingQueueFIFOPublisher).toDynamicValue(() => new InjectableOrderingQueueFIFOPublisher({...orderingQueueConfig})).inTransientScope();
+container.bind<OrderingQueueFIFOPublisher>(TYPES.OrderingQueueFIFOPublisher).toDynamicValue(() => orderingQueuePublisher).inSingletonScope();
 // Repo
 container.bind<ITraderRepo>(TYPES.TraderRepo).toDynamicValue(() => new TraderRepo(cardPlatformSequel.models.traderModel)).inTransientScope();
 container.bind<IIdentityUserRepo>(TYPES.IdentityUserRepo).toDynamicValue(() => new IdentityUserRepo(cardPlatformSequel.models.identityUserModel)).inTransientScope();

@@ -30,6 +30,8 @@ export const config =
 
 
 @injectable()
-export class InjectableOrderingQueueFIFOPublisher extends OrderingQueueFIFOPublisher{
+class InjectableOrderingQueueFIFOPublisher extends OrderingQueueFIFOPublisher{
 
 }
+
+export const orderingQueuePublisher = new InjectableOrderingQueueFIFOPublisher({...config});
