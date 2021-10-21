@@ -3,8 +3,9 @@ import {Result} from "../../../../../core/logic/Result";
 import {UseCase} from "../../../../../core/domain/UseCase";
 import {GenericAppError} from "../../../../../core/logic/AppError";
 import {CardOrderingError} from "../../shared/CardOrderingError";
+import {UseCaseError} from "../../../../../core/logic/UseCaseError";
 
-export interface PlaceOrderDTO{
+export interface PlaceOrderDTO {
     userId: string,
     cardIndex: number,
     price: number,
@@ -13,11 +14,11 @@ export interface PlaceOrderDTO{
 
 export type PlaceOrderUseCaseResponse = Either<
     CardOrderingError.TraderDoesntExist |
+    CardOrderingError.CardOrderProcessedFailure |
     GenericAppError.UnexpectedError |
-    Result<any>,
-    Result<any>
->
+    Result<UseCaseError>,
+    Result<any>>
 
-export interface IPlaceOrderUseCase extends  UseCase<PlaceOrderDTO, Promise<PlaceOrderUseCaseResponse>>{
+export interface IPlaceOrderUseCase extends UseCase<PlaceOrderDTO, Promise<PlaceOrderUseCaseResponse>> {
 
 }
