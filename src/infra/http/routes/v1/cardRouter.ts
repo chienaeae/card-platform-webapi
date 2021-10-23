@@ -42,8 +42,6 @@ cardRouter.post("/card", async (req: Request, res:Response) => {
  * /cards/info:
  *   get:
  *     summary: 取得交易卡牌資訊
- *     security:
- *       - traderAuthorization: []
  *     tags: [Card]
  *     responses:
  *       200:
