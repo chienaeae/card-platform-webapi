@@ -16,4 +16,23 @@ export class App {
             console.log(`Listening on ${PORT}`);
         });
     }
+
+    public closeServer(): Promise<void>{
+        if(!!this.httpServer == false){
+            console.log(`Not yet start server`);
+            return
+        }
+
+        console.info(`closing server`)
+        return new Promise(async (resolve, reject) => {
+            await this.httpServer.close((err) => {
+                if(err){
+                    reject(err)
+                }
+                console.info(`server has closed`)
+                resolve()
+            });
+        })
+
+    }
 }
