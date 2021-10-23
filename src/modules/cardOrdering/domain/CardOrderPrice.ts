@@ -7,7 +7,7 @@ interface CardOrderPriceProps{
 }
 
 export class CardOrderPrice extends ValueObject<CardOrderPriceProps>{
-    private static readonly MINIMUM_PRICE: number = 0.0;
+    private static readonly MINIMUM_PRICE: number = 1.0;
     private static readonly MAXIMUM_PRICE: number = 10.0;
 
     get value(): number{

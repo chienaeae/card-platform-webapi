@@ -21,9 +21,7 @@ export class OrderProcessUseCase implements IOrderProcessUseCase {
             const result = await this.orderingQueueFIFOPublisher.sendMessage(
                 {
                     orderId: cardOrderId,
-                    orderTraderId: cardOrder.traderId.id.toString(),
-                    orderStatus: cardOrder.status.value,
-                    orderType: cardOrder.type.value
+                    orderIndex: cardOrder.cardIndex
                 },
                 cardOrderId,
                 cardOrder.cardIndex.toString())
