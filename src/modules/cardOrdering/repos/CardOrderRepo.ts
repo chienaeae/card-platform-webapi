@@ -27,18 +27,28 @@ export class CardOrderRepo implements ICardOrderRepo {
     }
 
     async findLatestOrderByCardIndex(latestCount: number, cardIndex: number): Promise<CardOrder[]> {
-        const baseQuery = this.createBaseQuery();
-        baseQuery.where['order_card_index'] = cardIndex;
-        baseQuery['limit'] = latestCount;
-        const sequelizeCardOrderCollection = await this.model.findAll(baseQuery);
+        const sequelizeCardOrderCollection = await this.model.findAll({
+            where: {
+                order_card_index:  cardIndex
+            },
+            order: [
+                ['ordered_time', 'DESC']
+            ],
+            limit: latestCount
+        });
         return sequelizeCardOrderCollection.map((v) => CardOrderMap.toDomain(v));
     }
 
     async findLatestOrdersByTraderId(latestCount: number, traderId: TraderId): Promise<CardOrder[]> {
-        const baseQuery = this.createBaseQuery();
-        baseQuery.where['order_trader_id'] = traderId.id.toString();
-        baseQuery['limit'] = latestCount;
-        const sequelizeCardOrderCollection = await this.model.findAll(baseQuery);
+        const sequelizeCardOrderCollection = await this.model.findAll({
+            where: {
+                order_trader_id:  traderId.id.toString()
+            },
+            order: [
+                ['ordered_time', 'DESC']
+            ],
+            limit: latestCount
+        });
         return sequelizeCardOrderCollection.map((v) => CardOrderMap.toDomain(v));
     }
 

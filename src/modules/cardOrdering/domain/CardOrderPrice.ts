@@ -30,7 +30,7 @@ export class CardOrderPrice extends ValueObject<CardOrderPriceProps>{
         }
 
         if(price < this.MINIMUM_PRICE || price > this.MAXIMUM_PRICE){
-            return Result.fail<CardOrderPrice>('Card ordering price doesnt meet criteria [in 0.0-10.0 range].');
+            return Result.fail<CardOrderPrice>('Card ordering price doesnt meet criteria [in 1.0-10.0 USD range].');
         }
 
         const cardOrderPrice = new CardOrderPrice({
