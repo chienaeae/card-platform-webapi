@@ -20,4 +20,15 @@
 
 ## WebAPI 分散架構
 
+
 ![image](https://github.com/chienaeae/card-platform-webapi/blob/feature/viewCardAPI/pic/api_structure_graph.jpg)
+
+
+## cd 流程
+
+
+
+![image](https://github.com/chienaeae/card-platform-webapi/blob/feature/viewCardAPI/pic/api_cicd_graph.jpg)
+
+
+
