@@ -11,10 +11,9 @@
 5. 測試剩餘服務...
 
 ## 相依專案
-
-[WebAPI](https://github.com/chienaeae/card-platform-webapi)
-[訂單處理專案](https://github.com/chienaeae/card-platform-ordering-process)
-[共用函示](https://github.com/chienaeae/card-platform-library)
+- [WebAPI](https://github.com/chienaeae/card-platform-webapi)
+- [訂單處理專案](https://github.com/chienaeae/card-platform-ordering-process)
+- [共用函示](https://github.com/chienaeae/card-platform-library)
 
 ## 交易撮合說明
 
