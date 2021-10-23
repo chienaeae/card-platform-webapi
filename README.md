@@ -18,3 +18,6 @@
 
 3. 若不存在可撮合對象成功，則未處理訂單將變更為已處理訂單(processed)，等待未來與其他進行撮合；若撮合成功，兩訂單的狀態將改變為已解決 (completed)。
 
+## WebAPI 分散架構
+
+![image](https://github.com/chienaeae/card-platform-webapi/blob/feature/viewCardAPI/pic/api_structure_graph.jpg)
