@@ -31,8 +31,36 @@ cardRouter.use(bodyParser.json())
  *       201:
  *         description: 註冊成功
  */
-cardRouter.post("/", async (req: Request, res:Response) => {
+cardRouter.post("/card", async (req: Request, res:Response) => {
     await container.get<BaseController>(TYPES.CreateCardController).execute(req, res);
+})
+
+
+
+/**
+ * @swagger
+ * /cards/info:
+ *   get:
+ *     summary: 取得交易卡牌資訊
+ *     security:
+ *       - traderAuthorization: []
+ *     tags: [Card]
+ *     responses:
+ *       200:
+ *         description: 取得成功
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 cards:
+ *                  type: array
+ *                  items:
+ *                    type: object
+ *                    $ref: '#/components/schemas/cardInfoResponse'
+ */
+cardRouter.get("/cards/info", async (req: Request, res:Response) => {
+    await container.get<BaseController>(TYPES.GetCardsController).execute(req, res);
 })
 
 export {cardRouter};

@@ -11,11 +11,11 @@ import {cardTradeRouter} from "./cardTradeRouter";
 const v1Router: Router = express.Router();
 
 
+v1Router.use('/', cardRouter);
 v1Router.use('/identity', identityUserRouter);
 v1Router.use('/trader', traderRouter);
 v1Router.use('/trader', cardOrderingRouter);
 v1Router.use('/trader', cardTradeRouter);
-v1Router.use('/card', cardRouter);
 v1Router.get('/', (req: Request, res: Response) => {
     res.send('<h1>Card Platform App</h1>' +
         ' <h4>Message: Success</h4>' +

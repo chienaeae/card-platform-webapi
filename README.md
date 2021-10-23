@@ -4,6 +4,13 @@
 
 [Swagger Doc.](https://card-platform.phillyzone.info/api/v1/docs/)
 
+### 服務測試方式
+
+1. Servers 設定為生產環境
+2. 註冊使用者
+3. 取得使用者token， 並將 accessToken 的值帶入 traderAuthorization (Bearer)
+4. 註冊交易平台使用者
+5. 測試剩餘服務...
 
 ## 交易撮合說明
 

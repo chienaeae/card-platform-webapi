@@ -1,6 +1,8 @@
 import {OrderingQueueFIFOPublisher} from "../../reference/card-platform-library/src/modules/sqs/orderingQueueFIFO/OrderingQueueFIFOPublisher";
 import {OrderProcessUseCase} from "../../modules/cardOrdering/useCases/shared/OrderProcessUseCase";
 import {GetOrderTradesController} from "../../modules/cardOrdering/useCases/getOrderTrades/GetOrderTradesController";
+import {GetCardsUseCase} from "../../modules/card/useCases/getCards/GetCardsUseCase";
+import {GetCardsController} from "../../modules/card/useCases/getCards/GetCardsController";
 
 const TYPES = {
     ISigner: Symbol.for("ISigner"),
@@ -24,6 +26,7 @@ const TYPES = {
     GetOrdersUseCase: Symbol.for("GetOrdersUseCase"),
     OrderProcessUseCase: Symbol.for("OrderProcessUseCase"),
     GetOrderTradesUseCase: Symbol.for("GetOrderTradesUseCase"),
+    GetCardsUseCase: Symbol.for("GetCardsUseCase"),
     // Controller
     TokenController: Symbol.for("TokenController"),
     RegisterController: Symbol.for("RegisterController"),
@@ -31,7 +34,8 @@ const TYPES = {
     CreateCardController: Symbol.for("CreateCardController"),
     PlaceOrderController: Symbol.for("PlaceOrderController"),
     GetOrdersController: Symbol.for("GetOrdersController"),
-    GetOrderTradesController: Symbol.for("GetOrderTradesController")
+    GetOrderTradesController: Symbol.for("GetOrderTradesController"),
+    GetCardsController: Symbol.for("GetCardsController")
 };
 
 export { TYPES };

@@ -14,7 +14,7 @@ export class CardMap extends Mapper<Card>{
     public static toDomain(raw: any): Card{
         const cardOrError = Card.create({
             cardIndex: raw.card_index,
-            cardName: raw.cardName
+            cardName: raw.card_name
         }, new UniqueEntityID(raw.card_id));
 
         cardOrError.isFailure ? console.log(cardOrError.error) : '';

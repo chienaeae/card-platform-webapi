@@ -62,6 +62,9 @@ import {GetOrderTradesUseCase} from "../../../modules/cardOrdering/useCases/getO
 import {ICardTradeRepo} from "../../../modules/cardOrdering/repos/interfaces/ICardTradeRepo";
 import {CardTradeRepo} from "../../../modules/cardOrdering/repos/CardTradeRepo";
 import {GetOrderTradesController} from "../../../modules/cardOrdering/useCases/getOrderTrades/GetOrderTradesController";
+import {IGetCardsUseCase} from "../../../modules/card/useCases/getCards/interfaces/IGetCardsUseCase";
+import {GetCardsUseCase} from "../../../modules/card/useCases/getCards/GetCardsUseCase";
+import {GetCardsController} from "../../../modules/card/useCases/getCards/GetCardsController";
 
 const container = new Container();
 container.bind<ISigner>(TYPES.ISigner).toDynamicValue(() => new JWTSigner(secret, verifyOptions, signOptions)).inSingletonScope();
@@ -86,6 +89,7 @@ container.bind<ICheckCardIndexUseCase>(TYPES.CheckCardIndexUseCase).to(CheckCard
 container.bind<IGetOrdersUseCase>(TYPES.GetOrdersUseCase).to(GetOrdersUseCase).inSingletonScope();
 container.bind<IOrderProcessUseCase>(TYPES.OrderProcessUseCase).to(OrderProcessUseCase).inSingletonScope();
 container.bind<IGetOrderTradesUseCase>(TYPES.GetOrderTradesUseCase).to(GetOrderTradesUseCase).inSingletonScope();
+container.bind<IGetCardsUseCase>(TYPES.GetCardsUseCase).to(GetCardsUseCase).inSingletonScope();
 
 // Controller
 container.bind<BaseController>(TYPES.RegisterController).to(RegisterController).inTransientScope();
@@ -95,5 +99,6 @@ container.bind<BaseController>(TYPES.CreateCardController).to(CreateCardControll
 container.bind<BaseController>(TYPES.PlaceOrderController).to(PlaceOrderController).inTransientScope();
 container.bind<BaseController>(TYPES.GetOrdersController).to(GetOrdersController).inTransientScope();
 container.bind<BaseController>(TYPES.GetOrderTradesController).to(GetOrderTradesController).inTransientScope();
+container.bind<BaseController>(TYPES.GetCardsController).to(GetCardsController).inTransientScope();
 
 export default container;

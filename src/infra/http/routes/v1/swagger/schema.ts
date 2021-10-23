@@ -90,7 +90,7 @@
  *         cardIndex:
  *           type: number
  *           format: integer
- *           description: 訂單卡片類別 index
+ *           description: 訂單卡牌 index
  *           example: 1
  *         buyOrderId:
  *           type: string
@@ -100,6 +100,28 @@
  *           type: string
  *           description: 買入訂單ID
  *           example: 08a3b88e-9dd1-4777-a7d0-d06f74446b1b
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     cardInfoResponse:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: 卡牌ID
+ *           example: 08a3b88e-9dd1-4777-a7d0-d06f74446b1b
+ *         cardIndex:
+ *           type: number
+ *           format: integer
+ *           description: 卡牌 index
+ *           example: 1
+ *         cardName:
+ *           type: string
+ *           description: 卡牌名稱
+ *           example: Pikachu
  */
 
 /**

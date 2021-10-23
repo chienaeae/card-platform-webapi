@@ -1,6 +1,6 @@
 import {ICardRepo} from "./interfaces/ICardRepo";
 import {Card} from "../domain/Card";
-import {CardMap} from "../mappers/cardMap";
+import {CardMap} from "../mappers/CardMap";
 import {Card as CardModel} from "../../../reference/card-platform-library/src/modules/sequlize/models/card/Card.models";
 
 export class CardRepo implements ICardRepo{
@@ -28,6 +28,15 @@ export class CardRepo implements ICardRepo{
         return !! rawCard === true;
     }
 
+
+    async findCards(latestCount: number): Promise<Card[]> {
+        const sequelizeCardInstanceCollection = await this.model.findAll({
+            limit: latestCount
+        });
+        return sequelizeCardInstanceCollection.map(v => CardMap.toDomain(v));
+
+    }
+
     async cardIndexExists(cardIndex: number): Promise<boolean> {
         const baseQuery = this.createBaseQuery();
         baseQuery.where['card_index'] = cardIndex
@@ -52,4 +61,5 @@ export class CardRepo implements ICardRepo{
             console.log(err)
         }
     }
+
 }
