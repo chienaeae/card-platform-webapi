@@ -1,16 +1,20 @@
 # 使用者交易平台 API
 
-## 說明
+### 文件/說明
 
 [Swagger Doc.](https://card-platform.phillyzone.info/api/v1/docs/)
-
-### 服務測試方式
 
 1. Servers 設定為生產環境
 2. 註冊使用者
 3. 取得使用者token， 並將 accessToken 的值帶入 traderAuthorization (Bearer)
 4. 註冊交易平台使用者
 5. 測試剩餘服務...
+
+## 相依專案
+
+[WebAPI](https://github.com/chienaeae/card-platform-webapi)
+[訂單處理專案](https://github.com/chienaeae/card-platform-ordering-process)
+[共用函示](https://github.com/chienaeae/card-platform-library)
 
 ## 交易撮合說明
 
