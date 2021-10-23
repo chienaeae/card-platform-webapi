@@ -48,7 +48,7 @@ export class PlaceOrderUseCase implements IPlaceOrderUseCase {
         const cardOrderTypeOrError = CardOrderType.create(request.type);
         const combinedPropsResult = Result.combine([cardOrderPriceOrError, cardOrderStatusOrError, cardOrderTypeOrError])
         if (combinedPropsResult.isFailure) {
-            return left(Result.fail<void>(combinedPropsResult.error)) as PlaceOrderUseCaseResponse;
+            return left(Result.fail<void>(combinedPropsResult.error.toString())) as PlaceOrderUseCaseResponse;
         }
         const cardOrderOrError = CardOrder.create({
             traderId: cardOrderTraderId,

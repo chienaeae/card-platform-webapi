@@ -27,13 +27,11 @@ export class PlaceOrderController extends BaseController {
                 switch (error.constructor) {
                     case CardOrderingError.TraderDoesntExist:
                     case CardOrderingError.CardIndexDoesntExist:
-                        return this.clientError(error.errorValue().message)
+                        return this.clientError(error.errorValue().message);
                     case CardOrderingError.CardOrderProcessedFailure:
-                        console.log(result.value.errorValue().message)
                         return this.fail(error.errorValue().message);
                     default:
-                        console.log(error.errorValue())
-                        return this.fail(error.errorValue().message);
+                        return this.fail(error.errorValue());
                 }
             }
             return this.created(this.res);
