@@ -39,7 +39,7 @@ cardOrderingRouter.post("/cardOrder", async (req: express.Request, res: express.
  * @swagger
  * /trader/cardOrders/status:
  *   get:
- *     summary: 查看 近50筆 卡片訂單狀況
+ *     summary: 取得 近50筆 卡片訂單狀況
  *     security:
  *       - traderAuthorization: []
  *     tags: [CardOrder]

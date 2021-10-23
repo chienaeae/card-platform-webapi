@@ -1,5 +1,10 @@
 # 使用者交易平台 API
 
+## 說明
+
+[Swagger Doc.](https://card-platform.phillyzone.info/api/v1/docs/)
+
+
 ## 交易撮合說明
 
 1. 買入訂單 (buy order) 進入平台時，若平台中存在比該買入價格【更低或相同】的賣出訂單時，則以該賣出訂單的價格撮合 (trade made)。
@@ -24,11 +29,8 @@
 ![image](https://github.com/chienaeae/card-platform-webapi/blob/feature/viewCardAPI/pic/api_structure_graph.jpg)
 
 
-## cd 流程
-
+## 部署流程圖
 
 
 ![image](https://github.com/chienaeae/card-platform-webapi/blob/feature/viewCardAPI/pic/api_cicd_graph.jpg)
-
-
 

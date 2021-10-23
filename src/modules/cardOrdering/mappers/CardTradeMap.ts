@@ -16,8 +16,6 @@ export class CardTradeMap extends Mapper<CardTrade> {
 
     public static toDomain(raw: any): CardTrade {
         if (!!raw == false) return null;
-        console.log(raw)
-
         const cardTradeOrError = CardTrade.create({
             tradeCardIndex: raw.trade_card_index,
             tradePrice: raw.trade_price,
