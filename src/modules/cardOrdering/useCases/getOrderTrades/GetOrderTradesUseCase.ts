@@ -20,7 +20,7 @@ export class GetOrderTradesUseCase implements IGetOrderTradesUseCase {
     async execute(request?: GetOrderTradesQuery): Promise<GetOrderTradesUseCaseResponse> {
         // Check card exists
         const cardIndex = parseInt(request.cardIndex);
-        if (typeof cardIndex !== 'number') {
+        if (!!cardIndex == false) {
             return left(Result.fail<void>('invalid card index')) as GetOrderTradesUseCaseResponse;
         }
         const cardIndexCheckedResult = await this.checkCardIndexUseCase.execute({cardIndex: cardIndex});
@@ -37,7 +37,9 @@ export class GetOrderTradesUseCase implements IGetOrderTradesUseCase {
                     return {
                         id: cardTrade.id.toString(),
                         price: cardTrade.tradePrice,
-                        cardIndex: cardIndex
+                        cardIndex: cardIndex,
+                        buyOrderId: cardTrade.buyOrder.id.toString(),
+                        sellOrderId: cardTrade.sellOrder.id.toString()
                     }
                 })
             })) as GetOrderTradesUseCaseResponse

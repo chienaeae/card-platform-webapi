@@ -75,6 +75,37 @@
  * @swagger
  * components:
  *   schemas:
+ *     orderTradeStatusResponse:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: 成交訂單ID
+ *           example: 08a3b88e-9dd1-4777-a7d0-d06f74446b1b
+ *         price:
+ *           type: number
+ *           format: float
+ *           description: 成交價
+ *           example: 5.0
+ *         cardIndex:
+ *           type: number
+ *           format: integer
+ *           description: 訂單卡片類別 index
+ *           example: 1
+ *         buyOrderId:
+ *           type: string
+ *           description: 買入訂單ID
+ *           example: 08a3b88e-9dd1-4777-a7d0-d06f74446b1b
+ *         sellOrderId:
+ *           type: string
+ *           description: 買入訂單ID
+ *           example: 08a3b88e-9dd1-4777-a7d0-d06f74446b1b
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
  *     loginResponse:
  *       type: object
  *       properties:

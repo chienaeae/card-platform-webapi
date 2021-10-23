@@ -19,6 +19,8 @@ cardRouter.use(bodyParser.json())
  *   post:
  *     summary: 新增交易卡牌種類
  *     description: 在卡片交易平台中新增一張交易卡牌種類
+ *     security:
+ *       - traderAuthorization: []
  *     tags: [Card]
  *     requestBody:
  *       content:

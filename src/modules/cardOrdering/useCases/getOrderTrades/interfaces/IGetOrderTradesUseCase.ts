@@ -10,7 +10,9 @@ export interface GetOrderTradesQuery{
 interface Trade{
     id: string,
     price: number,
-    cardIndex: number
+    cardIndex: number,
+    buyOrderId: string,
+    sellOrderId: string
 }
 
 export interface GetOrderTradeResponseDTO{

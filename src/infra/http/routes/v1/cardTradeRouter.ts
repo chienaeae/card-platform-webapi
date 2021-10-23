@@ -17,12 +17,28 @@ cardTradeRouter.use(bodyParser.json())
  * @swagger
  * /trader/cardTrades/status:
  *   get:
- *     summary: 新增交易卡牌種類
- *     description: 在卡片交易平台中新增一張交易卡牌種類
- *     tags: [Card]
+ *     summary: 取得 卡牌 近50筆 成交訂單資訊
+ *     security:
+ *       - traderAuthorization: []
+ *     tags: [CardTrade]
+ *     parameters:
+ *     - name: cardIndex
+ *       in: query
+ *       descriptions: 卡牌 index
+ *       required: true
  *     responses:
  *       200:
- *         description: 註冊成功
+ *         description: order 成功
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 trades:
+ *                  type: array
+ *                  items:
+ *                    type: object
+ *                    $ref: '#/components/schemas/orderTradeStatusResponse'
  */
 cardTradeRouter.get("/cardTrades/status", async (req: Request, res:Response) => {
     await container.get<BaseController>(TYPES.GetOrderTradesController).execute(req, res);
