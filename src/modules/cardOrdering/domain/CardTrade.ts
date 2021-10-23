@@ -6,6 +6,7 @@ import {Guard} from "../../../core/logic/Guard";
 import {Result} from "../../../core/logic/Result";
 import {CardOrderCreatedEvent} from "./events/cardOrderCreatedEvents";
 import {CardTradeCreatedEvent} from "./events/cardTradeCreatedEvents";
+import {CardId} from "../../card/domain/CardId";
 
 interface CardTradeProps{
     tradeCardIndex: number,
@@ -19,20 +20,24 @@ export class CardTrade extends AggregateRoot<CardTradeProps>{
         return this._id;
     }
 
+    get cardTradeId(): CardTradeId {
+        return CardTradeId.create(this.id);
+    }
+
     get tradePrice(): number{
-        return this.tradePrice;
+        return this.props.tradePrice;
     }
 
     get tradeCardIndex(): number{
-        return this.tradeCardIndex;
+        return this.props.tradeCardIndex;
     }
 
     get buyOrder(): CardOrder{
-        return this.buyOrder;
+        return this.props.buyOrder;
     }
 
     get sellOrder():CardOrder{
-        return this.sellOrder;
+        return this.props.sellOrder;
     }
 
     private constructor(props: CardTradeProps, id?: UniqueEntityID) {

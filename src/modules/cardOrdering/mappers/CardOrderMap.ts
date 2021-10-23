@@ -40,7 +40,6 @@ export class CardOrderMap extends Mapper<CardOrder> {
         }, new UniqueEntityID(raw.order_id));
 
         cardOrderError.isFailure ? console.log(cardOrderError.error): '';
-
         return cardOrderError.isSuccess ? cardOrderError.getValue() : null;
 
     }
