@@ -2,7 +2,7 @@ import * as path from 'path';
 import {OAS3Options} from "swagger-jsdoc";
 
 export const options: OAS3Options = {
-    definition: {
+    swaggerDefinition: {
         openapi: "3.0.0",
         info: {
             title: "卡片交易平台 API",
@@ -23,6 +23,7 @@ export const options: OAS3Options = {
     apis: [
         path.join(__dirname, '..', '*.ts'),
         path.join(__dirname, '..', '*.js'),
-        `${__dirname}/*.yml`
+        `${__dirname}/*.ts`,
+        `${__dirname}/*.js`
     ],
 };
