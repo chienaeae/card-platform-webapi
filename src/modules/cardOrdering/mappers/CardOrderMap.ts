@@ -24,7 +24,7 @@ export class CardOrderMap extends Mapper<CardOrder> {
     }
 
     public static toDomain(raw: any): CardOrder {
-        // Decimal Type (string) to number
+        if(!!raw == false) return null;
         const priceOrError = CardOrderPrice.create(raw.order_price);
         if(priceOrError.isFailure){
             console.log(priceOrError.errorValue())

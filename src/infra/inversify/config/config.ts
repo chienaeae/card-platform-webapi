@@ -57,6 +57,11 @@ import {
 import {OrderingQueueFIFOPublisher} from "../../../reference/card-platform-library/src/modules/sqs/orderingQueueFIFO/OrderingQueueFIFOPublisher";
 import {IOrderProcessUseCase} from "../../../modules/cardOrdering/useCases/shared/interfaces/IOrderProcessUseCase";
 import {OrderProcessUseCase} from "../../../modules/cardOrdering/useCases/shared/OrderProcessUseCase";
+import {IGetOrderTradesUseCase} from "../../../modules/cardOrdering/useCases/getOrderTrades/interfaces/IGetOrderTradesUseCase";
+import {GetOrderTradesUseCase} from "../../../modules/cardOrdering/useCases/getOrderTrades/GetOrderTradesUseCase";
+import {ICardTradeRepo} from "../../../modules/cardOrdering/repos/interfaces/ICardTradeRepo";
+import {CardTradeRepo} from "../../../modules/cardOrdering/repos/CardTradeRepo";
+import {GetOrderTradesController} from "../../../modules/cardOrdering/useCases/getOrderTrades/GetOrderTradesController";
 
 const container = new Container();
 container.bind<ISigner>(TYPES.ISigner).toDynamicValue(() => new JWTSigner(secret, verifyOptions, signOptions)).inSingletonScope();
@@ -67,6 +72,7 @@ container.bind<ITraderRepo>(TYPES.TraderRepo).toDynamicValue(() => new TraderRep
 container.bind<IIdentityUserRepo>(TYPES.IdentityUserRepo).toDynamicValue(() => new IdentityUserRepo(cardPlatformSequel.models.identityUserModel)).inTransientScope();
 container.bind<ICardRepo>(TYPES.CardRepo).toDynamicValue(() => new CardRepo(cardPlatformSequel.models.cardModel)).inTransientScope();
 container.bind<ICardOrderRepo>(TYPES.CardOrderRepo).toDynamicValue(() => new CardOrderRepo(cardPlatformSequel.models.cardOrderModel)).inTransientScope();
+container.bind<ICardTradeRepo>(TYPES.CardTradeRepo).toDynamicValue(() => new CardTradeRepo(cardPlatformSequel.models.cardTradeModel, cardPlatformSequel.models.cardOrderModel)).inTransientScope();
 // UseCase
 container.bind<UseCase<RegisterDTO, Promise<RegisterUseCaseResponse>>>(TYPES.RegisterUseCase).to(RegisterUseCase).inTransientScope();
 container.bind<UseCase<AuthDTO, Promise<AuthResponse>>>(TYPES.AuthUseCase).to(AuthUseCase).inTransientScope();
@@ -79,6 +85,7 @@ container.bind<IFetchTraderUseCase>(TYPES.FetchTraderUseCase).to(FetchTraderUseC
 container.bind<ICheckCardIndexUseCase>(TYPES.CheckCardIndexUseCase).to(CheckCardIndexUseCase).inSingletonScope();
 container.bind<IGetOrdersUseCase>(TYPES.GetOrdersUseCase).to(GetOrdersUseCase).inSingletonScope();
 container.bind<IOrderProcessUseCase>(TYPES.OrderProcessUseCase).to(OrderProcessUseCase).inSingletonScope();
+container.bind<IGetOrderTradesUseCase>(TYPES.GetOrderTradesUseCase).to(GetOrderTradesUseCase).inSingletonScope();
 
 // Controller
 container.bind<BaseController>(TYPES.RegisterController).to(RegisterController).inTransientScope();
@@ -87,6 +94,6 @@ container.bind<BaseController>(TYPES.CreateTraderController).to(CreateTraderCont
 container.bind<BaseController>(TYPES.CreateCardController).to(CreateCardController).inTransientScope();
 container.bind<BaseController>(TYPES.PlaceOrderController).to(PlaceOrderController).inTransientScope();
 container.bind<BaseController>(TYPES.GetOrdersController).to(GetOrdersController).inTransientScope();
-
+container.bind<BaseController>(TYPES.GetOrderTradesController).to(GetOrderTradesController).inTransientScope();
 
 export default container;

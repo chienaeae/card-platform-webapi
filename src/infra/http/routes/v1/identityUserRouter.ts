@@ -23,7 +23,7 @@ identityUserRouter.use(bodyParser.urlencoded({ extended: true }))
  *     tags: [Identity]
  *     requestBody:
  *       content:
- *         application/x-www-form0urlencoded:
+ *         application/x-www-form-urlencoded:
  *           schema:
  *             type: object
  *             properties:
@@ -54,7 +54,7 @@ identityUserRouter.post('/register', async (req:Request, res: Response) => {
  *     tags: [Identity]
  *     requestBody:
  *       content:
- *         application/x-www-form0urlencoded:
+ *         application/x-www-form-urlencoded:
  *           schema:
  *             type: object
  *             properties:
